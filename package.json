@@ -1,7 +1,9 @@
 {
   "name": "pixi-painter",
   "type": "module",
-  "version": "1.0.0",
+  "version": "0.0.2",
+  "private": true,
+  "packageManager": "pnpm@8.12.1",
   "description": "Painter based on Pixi.JS",
   "author": {
     "email": "me@yunyoujun.cn",
@@ -11,6 +13,9 @@
   "license": "MPL-2.0",
   "keywords": [],
   "scripts": {
+    "build": "pnpm build:lib && pnpm build:site",
+    "build:lib": "pnpm -C packages/pixi-painter run build",
+    "build:site": "pnpm -C site run build",
     "dev": "pnpm -C site run dev",
     "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -20,6 +25,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.4.6",
+    "bumpp": "^9.2.1",
     "eslint": "^8.56.0",
     "lint-staged": "^15.2.0",
     "simple-git-hooks": "^2.9.0",
