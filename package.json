@@ -28,6 +28,7 @@
     "@antfu/eslint-config": "^2.4.6",
     "bumpp": "^9.2.1",
     "eslint": "^8.56.0",
+    "eslint-plugin-format": "^0.1.0",
     "lint-staged": "^15.2.0",
     "simple-git-hooks": "^2.9.0",
     "typescript": "^5.3.3",
