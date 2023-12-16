@@ -1,7 +1,7 @@
 {
   "name": "pixi-painter",
   "type": "module",
-  "version": "0.0.1",
+  "version": "0.0.4-beta.0",
   "scripts": {
     "build": "unbuild",
     "dev": "unbuild --stub",
