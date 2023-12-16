@@ -21,6 +21,7 @@
     "test": "vitest",
     "typecheck": "tsc --noEmit",
     "prepare": "simple-git-hooks",
+    "bumpp": "bumpp",
     "release": "bumpp && pnpm -C packages/pixi-painter run release"
   },
   "devDependencies": {

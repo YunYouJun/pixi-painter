@@ -2,10 +2,6 @@ import { defineConfig } from 'bumpp'
 
 export default defineConfig({
   all: true,
-  // ...options
-  recursive: true,
 
-  commit: false,
-  tag: false,
-  push: false,
+  files: ['package.json', 'packages/*/package.json', 'site/package.json'],
 })
