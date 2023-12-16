@@ -1,0 +1,12 @@
+{
+  "name": "pixi-painter",
+  "scripts": {
+    "build": "unbuild",
+    "dev": "unbuild --stub",
+    "prepublishOnly": "npm run build",
+    "release": "bumpp && pnpm publish"
+  },
+  "devDependencies": {
+    "unbuild": "^2.0.0"
+  }
+}

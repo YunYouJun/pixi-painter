@@ -1,0 +1,34 @@
+{
+  "name": "pixi-painter",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "Painter based on Pixi.JS",
+  "author": {
+    "email": "me@yunyoujun.cn",
+    "name": "YunYouJun",
+    "url": "https://yunyoujun.cn"
+  },
+  "license": "MPL-2.0",
+  "keywords": [],
+  "scripts": {
+    "dev": "pnpm -C site run dev",
+    "lint": "eslint .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "typecheck": "tsc --noEmit",
+    "prepare": "simple-git-hooks",
+    "release": "pnpm -C packages/pixi-painter run release"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^2.4.6",
+    "eslint": "^8.56.0",
+    "lint-staged": "^15.2.0",
+    "simple-git-hooks": "^2.9.0",
+    "typescript": "^5.3.3"
+  },
+  "simple-git-hooks": {
+    "pre-commit": "pnpm lint-staged"
+  },
+  "lint-staged": {
+    "*": "eslint --fix"
+  }
+}
