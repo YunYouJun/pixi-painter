@@ -14,17 +14,19 @@
   "keywords": [],
   "scripts": {
     "build": "pnpm build:lib && pnpm build:site",
+    "build:vite-vue": "pnpm -C examples/vite-vue run build",
     "build:lib": "pnpm -C packages/pixi-painter run build",
     "build:site": "pnpm -C site run build",
     "generate:site": "pnpm -C site run generate",
-    "dev": "pnpm -C site run dev",
-    "lint": "eslint .",
+    "dev": "pnpm -C examples/vite-vue run dev",
+    "lint": "eslint . --no-warn-ignore",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
     "prepare": "simple-git-hooks",
     "release": "bumpp && pnpm -C packages/pixi-painter run release"
   },
   "devDependencies": {
+    "@advjs/blender-ui": "^0.0.2-beta.0",
     "@antfu/eslint-config": "^2.4.6",
     "bumpp": "^9.2.1",
     "eslint": "^8.56.0",
@@ -32,6 +34,7 @@
     "lint-staged": "^15.2.0",
     "simple-git-hooks": "^2.9.0",
     "typescript": "^5.3.3",
+    "unocss": "^0.58.0",
     "vitest": "^1.0.4"
   },
   "simple-git-hooks": {

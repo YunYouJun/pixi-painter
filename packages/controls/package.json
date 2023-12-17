@@ -1,0 +1,6 @@
+{
+  "name": "@pixi-painter/controls",
+  "devDependencies": {
+    "@iconify-json/ph": "^1.1.9"
+  }
+}

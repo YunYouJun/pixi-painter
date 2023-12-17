@@ -2,11 +2,21 @@
   "name": "pixi-painter",
   "type": "module",
   "version": "0.0.3",
+  "color": "#F70A8D",
+  "emoji": "🎨",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/YunYouJun/pixi-painter"
+  },
   "scripts": {
     "build": "unbuild",
     "dev": "unbuild --stub",
     "prepublishOnly": "npm run build",
     "release": "pnpm publish"
+  },
+  "dependencies": {
+    "@ctrl/tinycolor": "^4.0.2",
+    "pixi.js": "^7.3.2"
   },
   "devDependencies": {
     "unbuild": "^2.0.0"

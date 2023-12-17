@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue'
 import { createPainter } from 'pixi-painter'
 
 import '@advjs/blender-ui/styles/css-vars.scss'
@@ -39,7 +40,7 @@ onMounted(() => {
     <div class="canvas-container" grid="~ cols-2" gap="2">
       <canvas ref="srcCanvas" class="h-full w-full rounded shadow" />
 
-      <canvas ref="targetCanvas" class="h-full w-full rounded shadow" />
+      <canvas ref="targetCanvas" class="h-full w-full rounded bg-gray shadow" />
     </div>
   </div>
 </template>

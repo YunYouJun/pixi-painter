@@ -1,11 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es2018",
+    "target": "ESNext",
     "lib": [
-      "esnext"
+      "DOM",
+      "ESNext"
     ],
-    "module": "esnext",
-    "moduleResolution": "node",
+    "baseUrl": ".",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
     "resolveJsonModule": true,
     "strict": true,
     "strictNullChecks": true,
