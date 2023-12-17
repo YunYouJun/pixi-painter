@@ -5,6 +5,8 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
 
   modules: [
+    'nuxt-security',
+
     '@vueuse/nuxt',
     '@unocss/nuxt',
     '@pinia/nuxt',
@@ -30,5 +32,11 @@ export default defineNuxtConfig({
         prefix: '',
       },
     ],
+  },
+
+  security: {
+    corsHandler: {
+      origin: '*',
+    },
   },
 })

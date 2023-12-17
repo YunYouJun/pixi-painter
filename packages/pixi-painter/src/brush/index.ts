@@ -1,4 +1,5 @@
 import * as PIXI from 'pixi.js'
+import type { Painter } from 'src'
 
 export interface BrushOptions {
   renderTexture?: PIXI.RenderTexture
@@ -16,7 +17,8 @@ export class Brush {
   /**
    * The color of the brush.
    */
-  static color: string | number = 0x000000
+  // static color: string | number = 0x000000
+  static color: string | number = 0xFFFFFF
   /**
    * The radius of the brush.
    */
@@ -36,7 +38,8 @@ export class Brush {
    * setup brush events
    * @inner
    */
-  setup(app: PIXI.Application) {
+  setup(painter: Painter) {
+    const { app } = painter
     app.stage.eventMode = 'static'
     app.stage.hitArea = app.screen
     app.stage
@@ -99,15 +102,18 @@ export class Brush {
       lastDrawnPoint = null
 
       // brush.endFill()
+
+      painter.emitter.emit('brush:up')
     }
   }
 
-  constructor(app: PIXI.Application) {
-    this.setup(app)
+  constructor(painter: Painter) {
+    const { app } = painter
+    this.setup(painter)
     app.stage.addChild(this.brush)
   }
 }
 
-export function createBrush(app: PIXI.Application, _options: BrushOptions = defaultBrushOptions) {
-  return new Brush(app)
+export function createBrush(painter: Painter, _options: BrushOptions = defaultBrushOptions) {
+  return new Brush(painter)
 }
