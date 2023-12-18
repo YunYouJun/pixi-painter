@@ -8,9 +8,6 @@ importers:
 
   .:
     devDependencies:
-      '@advjs/blender-ui':
-        specifier: ^0.0.2-beta.1
-        version: 0.0.2-beta.1
       '@antfu/eslint-config':
         specifier: ^2.4.6
         version: 2.4.6(@vue/compiler-sfc@3.3.12)(eslint-plugin-format@0.1.0)(eslint@8.56.0)(typescript@5.3.3)(vitest@1.0.4)
@@ -70,8 +67,8 @@ importers:
   packages/controls:
     dependencies:
       '@advjs/blender-ui':
-        specifier: 0.0.2-beta.1
-        version: 0.0.2-beta.1
+        specifier: 0.0.2-beta.3
+        version: 0.0.2-beta.3
     devDependencies:
       '@iconify-json/ph':
         specifier: ^1.1.9
@@ -95,15 +92,18 @@ importers:
 
   site:
     devDependencies:
+      '@advjs/blender-ui':
+        specifier: 0.0.2-beta.3
+        version: 0.0.2-beta.3
       '@iconify-json/carbon':
-        specifier: ^1.1.26
-        version: 1.1.26
+        specifier: ^1.1.27
+        version: 1.1.27
       '@iconify-json/ph':
         specifier: ^1.1.9
         version: 1.1.9
       '@iconify-json/ri':
-        specifier: ^1.1.17
-        version: 1.1.17
+        specifier: ^1.1.18
+        version: 1.1.18
       '@iconify-json/twemoji':
         specifier: ^1.1.15
         version: 1.1.15
@@ -163,8 +163,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /@advjs/blender-ui@0.0.2-beta.1:
-    resolution: {integrity: sha512-UCSw49Lz1FfnJ1NCq2xD2avwSf9Bfqb+zhreC5vrJ+32KBBAOZhlTju3vRT3dGpckSijxwQHbXTkKYQ+9jM8MA==}
+  /@advjs/blender-ui@0.0.2-beta.3:
+    resolution: {integrity: sha512-900Xnrp6kRBk5I+FvBJu/wZNCtFr8GevutKtKujKDQQv7X/9CL3RzUFh4Pip8HM9peQtwzfh+Jut6zwEfTsaDA==}
 
   /@ampproject/remapping@2.2.1:
     resolution: {integrity: sha512-lFMjJTrFL3j7L9yBxwYfCq2k6qqwHyzuUl/XBnif78PWTJYyL/dfowQHWE3sp6U6ZzqWiiIZnpTMO96zhkjwtg==}
@@ -2021,8 +2021,8 @@ packages:
     resolution: {integrity: sha512-dvuCeX5fC9dXgJn9t+X5atfmgQAzUOWqS1254Gh0m6i8wKd10ebXkfNKiRK+1GWi/yTvvLDHpoxLr0xxxeslWw==}
     dev: true
 
-  /@iconify-json/carbon@1.1.26:
-    resolution: {integrity: sha512-0y6JstqPCsjEiUuyTTdHE7Wd9gGlxzH2dEfvKUJe5E741qRgLlIipVdBoCkOtbyAT92WEcU8BNfDaC585OCC8w==}
+  /@iconify-json/carbon@1.1.27:
+    resolution: {integrity: sha512-tJVXv9+D9cjU5HcaY+8J0awv9AL/Mjo9MWR/fxHfHFPP/iokjPBEgq4jOBDGNe8W0k/BTrVI3zpgZjLoi6RNGg==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true
@@ -2033,8 +2033,8 @@ packages:
       '@iconify/types': 2.0.0
     dev: true
 
-  /@iconify-json/ri@1.1.17:
-    resolution: {integrity: sha512-FN6dynUF7GjVsDU9twvzreN+3gpWiJwpD7FJelHFVPjHNW7U4CDAnw4mEWLaqscB7npJVXLidYKdI03Mh0apTQ==}
+  /@iconify-json/ri@1.1.18:
+    resolution: {integrity: sha512-/gm7OrzhX6iOklhSnhK102unCzA+5wB0OJzXPgvpMr19VOD+dkXzIxEAbGu5lhFCxgn5TJ2jJLc8DtvnZWsyrw==}
     dependencies:
       '@iconify/types': 2.0.0
     dev: true

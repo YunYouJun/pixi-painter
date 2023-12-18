@@ -17,6 +17,16 @@ export default defineConfig({
     },
   },
 
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          pixi: ['pixi.js'],
+        },
+      },
+    },
+  },
+
   plugins: [
     vue(),
 

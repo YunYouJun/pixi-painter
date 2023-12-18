@@ -16,9 +16,10 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "devDependencies": {
-    "@iconify-json/carbon": "^1.1.26",
+    "@advjs/blender-ui": "0.0.2-beta.3",
+    "@iconify-json/carbon": "^1.1.27",
     "@iconify-json/ph": "^1.1.9",
-    "@iconify-json/ri": "^1.1.17",
+    "@iconify-json/ri": "^1.1.18",
     "@iconify-json/twemoji": "^1.1.15",
     "@nuxt/devtools": "latest",
     "@nuxtjs/color-mode": "^3.3.2",
