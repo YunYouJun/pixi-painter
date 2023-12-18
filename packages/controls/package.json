@@ -1,5 +1,8 @@
 {
   "name": "@pixi-painter/controls",
+  "dependencies": {
+    "@advjs/blender-ui": "0.0.2-beta.1"
+  },
   "devDependencies": {
     "@iconify-json/ph": "^1.1.9"
   }

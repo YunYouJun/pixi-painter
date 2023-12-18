@@ -2,7 +2,7 @@
   "1": {
     "inputs": {
       "ckpt_name": {
-        "content": "majicmixRealistic_v7.safetensors",
+        "content": "aingdiffusion_v113.safetensors",
         "image": null
       },
       "example": "[none]"
@@ -12,7 +12,7 @@
   "2": {
     "inputs": {
       "lora_name": {
-        "content": "LCM_LoRA_SDXL.safetensors",
+        "content": "xiaoyun-ad.safetensors",
         "image": null
       },
       "strength_model": 1,
@@ -33,7 +33,7 @@
     "inputs": {
       "from_translate": "auto",
       "to_translate": "en",
-      "text": "椅子， 杰作, 最好质量，"
+      "text": "<lora:yuumi:1>, 1girl, solo"
     },
     "class_type": "TranslateTextNode"
   },
@@ -132,10 +132,10 @@
     "inputs": {
       "seed": 389677771544087,
       "steps": 5,
-      "cfg": 1.5,
+      "cfg": 2,
       "sampler_name": "lcm",
       "scheduler": "ddim_uniform",
-      "denoise": 0.8,
+      "denoise": 1,
       "model": [
         "2",
         0

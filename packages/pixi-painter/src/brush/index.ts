@@ -1,5 +1,5 @@
 import * as PIXI from 'pixi.js'
-import type { Painter } from 'src'
+import type { Painter } from '../painter'
 
 export interface BrushOptions {
   renderTexture?: PIXI.RenderTexture

@@ -6,6 +6,8 @@ import { createEmitter } from './event'
 import { PainterHistory } from './features/history'
 
 export interface PainterOptions {
+  debug?: boolean
+
   size?: {
     width: number
     height: number
@@ -22,6 +24,8 @@ export function createStore(_options: PainterOptions): PainterStore {
 }
 
 export class Painter {
+  debug = false
+
   app: PIXI.Application
   emitter = createEmitter()
 
@@ -31,7 +35,10 @@ export class Painter {
   history = new PainterHistory()
 
   constructor(options: PainterOptions) {
-    const { size: { width, height } = { width: 768, height: 768 } } = options
+    const {
+      size: { width, height } = { width: 768, height: 768 },
+      debug = false,
+    } = options
 
     this.app = new PIXI.Application({
       view: options.canvas,
@@ -47,8 +54,8 @@ export class Painter {
       preserveDrawingBuffer: true,
     })
 
-    // @ts-expect-error env
-    if (import.meta.env.DEV) {
+    if (debug) {
+      this.debug = debug
       // @ts-expect-error pixi-inspector
       globalThis.__PIXI_APP__ = this.app
     }

@@ -14,7 +14,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 7,
+      "order": 8,
       "mode": 0,
       "inputs": [
         {
@@ -66,7 +66,7 @@
         "1": 54
       },
       "flags": {},
-      "order": 8,
+      "order": 6,
       "mode": 0,
       "inputs": [
         {
@@ -102,88 +102,6 @@
       },
       "widgets_values": [
         ""
-      ],
-      "color": "#322",
-      "bgcolor": "#533"
-    },
-    {
-      "id": 12,
-      "type": "PreviewTextNode",
-      "pos": [
-        420,
-        220
-      ],
-      "size": {
-        "0": 250,
-        "1": 200
-      },
-      "flags": {},
-      "order": 4,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "text",
-          "type": "STRING",
-          "link": 11,
-          "widget": {
-            "name": "text"
-          },
-          "label": "text"
-        }
-      ],
-      "outputs": [
-        {
-          "name": "STRING",
-          "type": "STRING",
-          "links": null,
-          "shape": 3,
-          "label": "STRING"
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PreviewTextNode"
-      },
-      "widgets_values": [
-        "",
-        "(worst quality:2),(low quality:2),(normal quality:2),lowres,watermark,"
-      ],
-      "color": "#322",
-      "bgcolor": "#533"
-    },
-    {
-      "id": 11,
-      "type": "TranslateTextNode",
-      "pos": [
-        170,
-        220
-      ],
-      "size": {
-        "0": 240,
-        "1": 200
-      },
-      "flags": {},
-      "order": 0,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "text",
-          "type": "STRING",
-          "links": [
-            10,
-            11
-          ],
-          "shape": 3,
-          "label": "text",
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "TranslateTextNode"
-      },
-      "widgets_values": [
-        "auto",
-        "en",
-        "(worst quality:2),(low quality:2),(normal quality:2),lowres,watermark,\n"
       ],
       "color": "#322",
       "bgcolor": "#533"
@@ -244,7 +162,7 @@
         "1": 130
       },
       "flags": {},
-      "order": 5,
+      "order": 4,
       "mode": 0,
       "inputs": [
         {
@@ -277,69 +195,6 @@
       ]
     },
     {
-      "id": 6,
-      "type": "TranslateTextNode",
-      "pos": [
-        150,
-        560
-      ],
-      "size": {
-        "0": 530,
-        "1": 124
-      },
-      "flags": {},
-      "order": 1,
-      "mode": 0,
-      "outputs": [
-        {
-          "name": "text",
-          "type": "STRING",
-          "links": [
-            8
-          ],
-          "shape": 3,
-          "label": "text",
-          "slot_index": 0
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "TranslateTextNode"
-      },
-      "widgets_values": [
-        "auto",
-        "en",
-        "椅子， 杰作, 最好质量，"
-      ],
-      "color": "#232",
-      "bgcolor": "#353"
-    },
-    {
-      "id": 39,
-      "type": "PreviewImage",
-      "pos": [
-        150,
-        1330
-      ],
-      "size": {
-        "0": 530,
-        "1": 550
-      },
-      "flags": {},
-      "order": 12,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "images",
-          "type": "IMAGE",
-          "link": 45,
-          "label": "images"
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "PreviewImage"
-      }
-    },
-    {
       "id": 17,
       "type": "PainterNode",
       "pos": [
@@ -351,7 +206,7 @@
         570
       ],
       "flags": {},
-      "order": 2,
+      "order": 0,
       "mode": 0,
       "outputs": [
         {
@@ -427,6 +282,76 @@
       }
     },
     {
+      "id": 39,
+      "type": "PreviewImage",
+      "pos": [
+        150,
+        1363
+      ],
+      "size": {
+        "0": 530,
+        "1": 550
+      },
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 45,
+          "label": "images"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      }
+    },
+    {
+      "id": 12,
+      "type": "PreviewTextNode",
+      "pos": [
+        420,
+        220
+      ],
+      "size": {
+        "0": 250,
+        "1": 200
+      },
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 11,
+          "widget": {
+            "name": "text"
+          },
+          "label": "text"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null,
+          "shape": 3,
+          "label": "STRING"
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "PreviewTextNode"
+      },
+      "widgets_values": [
+        "",
+        "(worst quality:2),(low quality:2),(normal quality:2),lowres,watermark,"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
       "id": 1,
       "type": "CheckpointLoader|pysssss",
       "pos": [
@@ -438,7 +363,7 @@
         "1": 122
       },
       "flags": {},
-      "order": 3,
+      "order": 1,
       "mode": 0,
       "outputs": [
         {
@@ -480,72 +405,9 @@
       },
       "widgets_values": [
         {
-          "content": "majicmixRealistic_v7.safetensors",
+          "content": "aingdiffusion_v113.safetensors",
           "image": null
         },
-        "[none]"
-      ],
-      "color": "#223",
-      "bgcolor": "#335"
-    },
-    {
-      "id": 2,
-      "type": "LoraLoader|pysssss",
-      "pos": [
-        170,
-        20
-      ],
-      "size": {
-        "0": 430,
-        "1": 150
-      },
-      "flags": {},
-      "order": 6,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "model",
-          "type": "MODEL",
-          "link": 1,
-          "label": "model"
-        },
-        {
-          "name": "clip",
-          "type": "CLIP",
-          "link": 4,
-          "label": "clip"
-        }
-      ],
-      "outputs": [
-        {
-          "name": "MODEL",
-          "type": "MODEL",
-          "links": [
-            28
-          ],
-          "shape": 3,
-          "label": "MODEL",
-          "slot_index": 0
-        },
-        {
-          "name": "CLIP",
-          "type": "CLIP",
-          "links": [],
-          "shape": 3,
-          "label": "CLIP",
-          "slot_index": 1
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "LoraLoader|pysssss"
-      },
-      "widgets_values": [
-        {
-          "content": "LCM_LoRA_SDXL.safetensors",
-          "image": null
-        },
-        1,
-        1,
         "[none]"
       ],
       "color": "#223",
@@ -613,8 +475,146 @@
         2,
         "lcm",
         "ddim_uniform",
-        0.9
+        1
       ]
+    },
+    {
+      "id": 11,
+      "type": "TranslateTextNode",
+      "pos": [
+        170,
+        220
+      ],
+      "size": {
+        "0": 240,
+        "1": 200
+      },
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            10,
+            11
+          ],
+          "shape": 3,
+          "label": "text",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "TranslateTextNode"
+      },
+      "widgets_values": [
+        "auto",
+        "en",
+        "(worst quality:2),(low quality:2),(normal quality:2),lowres,watermark,\n"
+      ],
+      "color": "#322",
+      "bgcolor": "#533"
+    },
+    {
+      "id": 2,
+      "type": "LoraLoader|pysssss",
+      "pos": [
+        171,
+        20
+      ],
+      "size": {
+        "0": 430,
+        "1": 150
+      },
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "link": 1,
+          "label": "model"
+        },
+        {
+          "name": "clip",
+          "type": "CLIP",
+          "link": 4,
+          "label": "clip"
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": [
+            28
+          ],
+          "shape": 3,
+          "label": "MODEL",
+          "slot_index": 0
+        },
+        {
+          "name": "CLIP",
+          "type": "CLIP",
+          "links": [],
+          "shape": 3,
+          "label": "CLIP",
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoraLoader|pysssss"
+      },
+      "widgets_values": [
+        {
+          "content": "xiaoyun-ad.safetensors",
+          "image": null
+        },
+        1,
+        1,
+        "[none]"
+      ],
+      "color": "#223",
+      "bgcolor": "#335"
+    },
+    {
+      "id": 6,
+      "type": "TranslateTextNode",
+      "pos": [
+        150,
+        560
+      ],
+      "size": {
+        "0": 530,
+        "1": 124
+      },
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": [
+            8
+          ],
+          "shape": 3,
+          "label": "text",
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "TranslateTextNode"
+      },
+      "widgets_values": [
+        "auto",
+        "en",
+        "<lora:yuumi:1>, 1girl, solo"
+      ],
+      "color": "#232",
+      "bgcolor": "#353"
     }
   ],
   "links": [

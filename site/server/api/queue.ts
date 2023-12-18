@@ -3,8 +3,8 @@ import path from 'node:path'
 import axios from 'axios'
 import consola from 'consola'
 
-import workflow from './lcm-workflow.json'
-import prompt from './prompt.json'
+import workflow from './play-workflow.json'
+import prompt from './play-prompt.json'
 
 function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms))

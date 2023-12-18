@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import type { Painter } from 'pixi-painter'
 import { createPainter } from 'pixi-painter'
 
 import '@advjs/blender-ui/styles/css-vars.scss'
@@ -15,6 +16,7 @@ const targetCanvas = ref<HTMLCanvasElement>()
 
 const inputPrompt = ref('椅子， 杰作, 最好质量，')
 
+const painter = ref<Painter>()
 onMounted(() => {
   if (!srcCanvas.value || !targetCanvas.value)
     return
@@ -78,8 +80,10 @@ onMounted(() => {
   <div px-10>
     <Logos mb-6 />
 
-    <PainterControls class="absolute left-1" />
-    <PainterOptionsBar class="absolute left-1 top-1" />
+    <template v-if="painter">
+      <PainterControls :painter="painter" class="absolute left-1" />
+      <PainterOptionsBar :painter="painter" class="absolute left-1 top-1" />
+    </template>
 
     <Suspense>
       <ClientOnly />

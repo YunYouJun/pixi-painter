@@ -2,8 +2,13 @@
 import type { Painter } from 'pixi-painter'
 import { createPainter } from 'pixi-painter'
 
+// import { useStorage } from '@vueuse/core'
+
 const srcCanvas = ref<HTMLCanvasElement>()
 const painter = ref<Painter>()
+// const targetCanvas = ref<HTMLCanvasElement>()
+// const inputPrompt = useStorage('pp:prompt', '椅子， 杰作, 最好质量，')
+
 onMounted(() => {
   if (!srcCanvas.value)
     return

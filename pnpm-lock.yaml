@@ -68,6 +68,10 @@ importers:
         version: 1.8.25(typescript@5.3.3)
 
   packages/controls:
+    dependencies:
+      '@advjs/blender-ui':
+        specifier: 0.0.2-beta.1
+        version: 0.0.2-beta.1
     devDependencies:
       '@iconify-json/ph':
         specifier: ^1.1.9
@@ -161,7 +165,6 @@ packages:
 
   /@advjs/blender-ui@0.0.2-beta.1:
     resolution: {integrity: sha512-UCSw49Lz1FfnJ1NCq2xD2avwSf9Bfqb+zhreC5vrJ+32KBBAOZhlTju3vRT3dGpckSijxwQHbXTkKYQ+9jM8MA==}
-    dev: true
 
   /@ampproject/remapping@2.2.1:
     resolution: {integrity: sha512-lFMjJTrFL3j7L9yBxwYfCq2k6qqwHyzuUl/XBnif78PWTJYyL/dfowQHWE3sp6U6ZzqWiiIZnpTMO96zhkjwtg==}
