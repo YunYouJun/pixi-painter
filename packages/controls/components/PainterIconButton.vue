@@ -7,7 +7,7 @@ defineProps<{
 
 <template>
   <button
-    class="h-10 w-10 rounded bg-dark-200 p-1"
+    class="pp-icon-button h-10 w-10 rounded bg-dark-200 p-1 outline-none"
     flex justify="center" items-center
     text-xl text-white
     :class="{
@@ -19,3 +19,13 @@ defineProps<{
     <slot />
   </button>
 </template>
+
+<style lang="scss">
+.pp-icon-button {
+  outline: none;
+
+  &:focus {
+    outline: none;
+  }
+}
+</style>

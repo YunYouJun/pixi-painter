@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@advjs/blender-ui':
-        specifier: ^0.0.2-beta.0
-        version: 0.0.2-beta.0
+        specifier: ^0.0.2-beta.1
+        version: 0.0.2-beta.1
       '@antfu/eslint-config':
         specifier: ^2.4.6
         version: 2.4.6(@vue/compiler-sfc@3.3.12)(eslint-plugin-format@0.1.0)(eslint@8.56.0)(typescript@5.3.3)(vitest@1.0.4)
@@ -42,14 +42,14 @@ importers:
   examples/vite-vue:
     dependencies:
       vue:
-        specifier: ^3.3.11
+        specifier: ^3.3.12
         version: 3.3.12(typescript@5.3.3)
     devDependencies:
       '@vitejs/plugin-vue':
         specifier: ^4.5.2
         version: 4.5.2(vite@5.0.10)(vue@3.3.12)
       typescript:
-        specifier: ^5.2.2
+        specifier: ^5.3.3
         version: 5.3.3
       unocss:
         specifier: ^0.58.0
@@ -61,7 +61,7 @@ importers:
         specifier: ^0.26.0
         version: 0.26.0(vue@3.3.12)
       vite:
-        specifier: ^5.0.8
+        specifier: ^5.0.10
         version: 5.0.10(sass@1.69.5)
       vue-tsc:
         specifier: ^1.8.25
@@ -127,9 +127,6 @@ importers:
       axios:
         specifier: ^1.6.2
         version: 1.6.2
-      blender-ui:
-        specifier: ^1.0.9
-        version: 1.0.9
       consola:
         specifier: ^3.2.3
         version: 3.2.3
@@ -162,8 +159,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /@advjs/blender-ui@0.0.2-beta.0:
-    resolution: {integrity: sha512-Zx76oqpQnxncIuc0g905YxNLVaiiFyZlS9ESxN1qoAx/3JOf/sOU0e7JnZE8jcOp5VoRUNbzcLn8+i+M7XapGw==}
+  /@advjs/blender-ui@0.0.2-beta.1:
+    resolution: {integrity: sha512-UCSw49Lz1FfnJ1NCq2xD2avwSf9Bfqb+zhreC5vrJ+32KBBAOZhlTju3vRT3dGpckSijxwQHbXTkKYQ+9jM8MA==}
     dev: true
 
   /@ampproject/remapping@2.2.1:
@@ -3911,7 +3908,7 @@ packages:
     hasBin: true
     dependencies:
       '@ampproject/remapping': 2.2.1
-      '@rollup/pluginutils': 5.1.0(rollup@3.29.4)
+      '@rollup/pluginutils': 5.1.0(rollup@4.9.0)
       '@unocss/config': 0.58.0
       '@unocss/core': 0.58.0
       '@unocss/preset-uno': 0.58.0
@@ -4182,7 +4179,7 @@ packages:
       vite: ^2.9.0 || ^3.0.0-0 || ^4.0.0 || ^5.0.0-0
     dependencies:
       '@ampproject/remapping': 2.2.1
-      '@rollup/pluginutils': 5.1.0(rollup@3.29.4)
+      '@rollup/pluginutils': 5.1.0(rollup@4.9.0)
       '@unocss/config': 0.58.0
       '@unocss/core': 0.58.0
       '@unocss/inspector': 0.58.0
@@ -5020,12 +5017,6 @@ packages:
 
   /birpc@0.2.14:
     resolution: {integrity: sha512-37FHE8rqsYM5JEKCnXFyHpBCzvgHEExwVVTq+nUmloInU7l8ezD1TpOhKpS8oe1DTYFqEK27rFZVKG43oTqXRA==}
-    dev: true
-
-  /blender-ui@1.0.9:
-    resolution: {integrity: sha512-Qcdl9UyXVGzulqKqTMIRdQob1O+pu2YLFl8YMN24iFKJjzdzIUnE37VvuOT+PiXi8hAdTu3IAK8wjrNKK01dNw==}
-    dependencies:
-      split.js: 1.6.5
     dev: true
 
   /boolbase@1.0.0:
@@ -10286,10 +10277,6 @@ packages:
     resolution: {integrity: sha512-eWN+LnM3GR6gPu35WxNgbGl8rmY1AEmoMDvL/QD6zYmPWgywxWqJWNdLGT+ke8dKNWrcYgYjPpG5gbTfghP8rw==}
     dev: true
 
-  /split.js@1.6.5:
-    resolution: {integrity: sha512-mPTnGCiS/RiuTNsVhCm9De9cCAUsrNFFviRbADdKiiV+Kk8HKp/0fWu7Kr8pi3/yBmsqLFHuXGT9UUZ+CNLwFw==}
-    dev: true
-
   /ssri@10.0.5:
     resolution: {integrity: sha512-bSf16tAFkGeRlUNDjXu8FzaMQt6g2HZJrun7mtMbIPOddxt3GLMSz5VWUWcqTJUPfLEaDIepGxv+bYQW49596A==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
@@ -10920,7 +10907,7 @@ packages:
   /unimport@3.6.1:
     resolution: {integrity: sha512-zKzbp8AQ+l8QK3XrONtUBdgBbMI8TkGh8hBYF77ZkVqMLLIAHwGSwJRFolPQMBx/5pezeRKvmu2gzlqnxRZeqQ==}
     dependencies:
-      '@rollup/pluginutils': 5.1.0(rollup@3.29.4)
+      '@rollup/pluginutils': 5.1.0(rollup@4.9.0)
       escape-string-regexp: 5.0.0
       fast-glob: 3.3.2
       local-pkg: 0.5.0
@@ -11095,7 +11082,7 @@ packages:
         optional: true
     dependencies:
       '@antfu/utils': 0.7.7
-      '@rollup/pluginutils': 5.1.0(rollup@3.29.4)
+      '@rollup/pluginutils': 5.1.0(rollup@4.9.0)
       fast-glob: 3.3.2
       local-pkg: 0.5.0
       magic-string: 0.30.5
@@ -11128,7 +11115,7 @@ packages:
         optional: true
     dependencies:
       '@antfu/utils': 0.7.7
-      '@rollup/pluginutils': 5.1.0(rollup@3.29.4)
+      '@rollup/pluginutils': 5.1.0(rollup@4.9.0)
       chokidar: 3.5.3
       debug: 4.3.4
       fast-glob: 3.3.2

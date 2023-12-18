@@ -27,7 +27,7 @@
     "release": "bumpp && pnpm -C packages/pixi-painter run release"
   },
   "devDependencies": {
-    "@advjs/blender-ui": "^0.0.2-beta.0",
+    "@advjs/blender-ui": "^0.0.2-beta.1",
     "@antfu/eslint-config": "^2.4.6",
     "bumpp": "^9.2.1",
     "eslint": "^8.56.0",

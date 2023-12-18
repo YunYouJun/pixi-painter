@@ -1,27 +1,33 @@
 <script lang="ts" setup>
+import { ref } from 'vue'
 import { Brush } from '../../pixi-painter/src'
 import type { Painter } from '../../pixi-painter/src'
 
-defineProps<{
-  painter?: Painter
+const props = defineProps<{
+  painter: Painter
 }>()
 
-// const activeTool = computed(() => store?.activeTool)
-
-// const brush = computed(() => props.painter?.brush)
+const backgroundColor = ref<string | number>(Number(props.painter.background.color) || 0xFFFFFF)
+function onBackgroundColorChange(color: number) {
+  const background = props.painter.background
+  if (background)
+    background.color = color
+}
 </script>
 
 <template>
+  <!-- eslint-disable vue/no-mutating-props -->
   <div rounded-lg bg="dark-100" flex="~ col" gap="1" p="1" text-white>
-    <!-- asdsd -->
-    <PainterIconButton icon="i-ph-paint-brush" />
     <PainterIconButton icon="i-ph-paint-brush" />
     <div my-1>
       <PainterColorPicker v-model="Brush.color" />
     </div>
 
-    <div my-1>
-      <PainterColorPicker v-model="Brush.color" />
+    <div v-if="painter.background" my-1>
+      <PainterColorPicker
+        :model-value="backgroundColor"
+        @update:model-value="onBackgroundColorChange"
+      />
     </div>
   </div>
 </template>

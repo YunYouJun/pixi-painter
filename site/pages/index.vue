@@ -1,22 +1,22 @@
 <script setup lang="ts">
+import type { Painter } from 'pixi-painter'
 import { createPainter } from 'pixi-painter'
 
-import '@advjs/blender-ui/styles/css-vars.scss'
-import consola from 'consola'
+import '@advjs/blender-ui/client/styles/css-vars.scss'
 
 // const online = useOnline()
 
 const srcCanvas = ref<HTMLCanvasElement>()
 const targetCanvas = ref<HTMLCanvasElement>()
 
+const painter = ref<Painter>()
 onMounted(() => {
   if (!srcCanvas.value || !targetCanvas.value)
     return
 
-  const painter = createPainter({
+  painter.value = createPainter({
     canvas: srcCanvas.value,
   })
-  consola.log(painter)
 })
 </script>
 
@@ -24,8 +24,10 @@ onMounted(() => {
   <div px-10>
     <Logos mb-6 />
 
-    <PainterControls class="absolute left-1" />
-    <PainterOptionsBar class="absolute left-1 top-1" />
+    <template v-if="painter">
+      <PainterControls :painter="painter" class="absolute left-1" />
+      <PainterOptionsBar class="absolute left-1 top-1" />
+    </template>
 
     <Suspense>
       <ClientOnly />

@@ -16,8 +16,8 @@ function consoleInfo(
   // eslint-disable-next-line no-console
   console.log(
     `%c ${emoji} ${name} %c${link}`,
-    `color: white; background: ${color}; padding:5px 0;`,
-    `padding:4px 6px;border:1px solid ${color};`,
+    `color: white; background: ${color}; padding:5px 0;border-radius: 2px 0 0 2px`,
+    `padding:4px 6px;border:1px solid ${color};border-radius: 0 2px 2px 0`,
   )
 }
 

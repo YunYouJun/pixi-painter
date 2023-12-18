@@ -28,7 +28,6 @@
     "@vite-pwa/nuxt": "^0.3.5",
     "@vueuse/nuxt": "^10.7.0",
     "axios": "^1.6.2",
-    "blender-ui": "^1.0.9",
     "consola": "^3.2.3",
     "nuxt": "^3.8.2",
     "nuxt-security": "^1.0.0",

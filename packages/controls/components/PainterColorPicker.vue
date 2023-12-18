@@ -17,7 +17,12 @@ function onChange(e: Event) {
 </script>
 
 <template>
-  <input class="color-picker" type="color" :value="color.toHexString()" @change="onChange">
+  <input
+    class="color-picker" type="color"
+    :value="color.toHexString()"
+    @input="onChange"
+    @change="onChange"
+  >
 </template>
 
 <style>

@@ -2,5 +2,6 @@
 </script>
 
 <template>
+  <!-- <PixiPainterAI /> -->
   <PixiPainterApp />
 </template>
