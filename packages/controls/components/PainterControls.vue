@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-import { Brush } from '../../pixi-painter/src'
+import { PainterBrush } from '../../pixi-painter/src'
 import type { Painter } from '../../pixi-painter/src'
 
 const props = defineProps<{
@@ -20,7 +20,7 @@ function onBackgroundColorChange(color: number) {
   <div rounded-lg bg="dark-100" flex="~ col" gap="1" p="1" text-white>
     <PainterIconButton icon="i-ph-paint-brush" />
     <div my-1>
-      <PainterColorPicker v-model="Brush.color" />
+      <PainterColorPicker v-model="PainterBrush.color" />
     </div>
 
     <div v-if="painter.background" my-1>

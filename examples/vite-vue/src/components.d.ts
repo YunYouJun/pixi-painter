@@ -7,6 +7,7 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
+    'AutoImport.story': typeof import('./../../../node_modules/@advjs/blender-ui/client/components/AutoImport.story.vue')['default']
     BApp: typeof import('./../../../node_modules/@advjs/blender-ui/client/components/BApp.vue')['default']
     BaseButton: typeof import('./../../../node_modules/@advjs/blender-ui/client/components/BaseButton.vue')['default']
     'BaseButton.story': typeof import('./../../../node_modules/@advjs/blender-ui/client/components/BaseButton.story.vue')['default']

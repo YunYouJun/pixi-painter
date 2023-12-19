@@ -13,7 +13,12 @@ export const defaultBrushOptions = {
   renderTexture: PIXI.RenderTexture.create({ width: 1, height: 1 }),
 }
 
-export class Brush {
+export class PainterBrush {
+  /**
+   * Enable brush
+   */
+  static enabled = true
+
   /**
    * The color of the brush.
    */
@@ -31,12 +36,7 @@ export class Brush {
   /**
    * prepare circle texture, that will be our brush
    */
-  brush = new PIXI.Graphics().beginFill(Brush.color)
-
-  /**
-   * Create a line that will interpolate the drawn points
-   */
-  line = new PIXI.Graphics()
+  graphics = new PIXI.Graphics().beginFill(PainterBrush.color)
 
   dragging = false
   lastDrawnPoint: PIXI.Point | null = null
@@ -46,44 +46,53 @@ export class Brush {
    * @inner
    */
   setup(painter: Painter) {
-    const { app } = painter
-    app.stage.eventMode = 'static'
-    app.stage.hitArea = app.screen
-    app.stage
+    const { app, board } = painter
+    // const parent = this
+    board.container.eventMode = 'static'
+    board.container.hitArea = app.screen
+    board.container
       .on('pointerdown', this.pointerDown.bind(this))
       .on('pointerup', this.pointerUp.bind(this))
       .on('pointerupoutside', this.pointerUp.bind(this))
       .on('pointermove', this.pointerMove.bind(this))
       .on('pointerout', this.pointerOut.bind(this))
       .on('pointerenter', this.pointerEnter.bind(this))
+
+    this.graphics.name = 'brushGraphics'
   }
 
   painter: Painter
 
   constructor(painter: Painter) {
     this.painter = painter
-    const { app } = painter
     this.setup(painter)
-    app.stage.addChild(this.brush)
   }
 
   getPressure(event: PIXI.FederatedPointerEvent) {
     const { pressure } = event
-    return Brush.enablePressure ? pressure : 1
+    return PainterBrush.enablePressure ? pressure : 1
   }
 
   pointerDown(event: PIXI.FederatedPointerEvent) {
+    if (!PainterBrush.enabled)
+      return
+
     this.dragging = true
     this.pointerMove(event)
   }
 
   pointerMove(event: PIXI.FederatedPointerEvent) {
+    if (!PainterBrush.enabled)
+      return
+
     const { global: { x, y } } = event
-    const brush = this.brush
+    // local position relative to the canvas
+    const localPos = event.getLocalPosition(this.painter.canvas.container, { x, y })
+    const graphics = this.graphics
     if (this.dragging) {
-      brush.beginFill(Brush.color)
-      brush.lineStyle({ width: 0, color: Brush.color })
-      brush.drawCircle(x, y, Brush.size * this.getPressure(event))
+      graphics.beginFill(PainterBrush.color)
+        .lineStyle({ width: 0, color: PainterBrush.color })
+        .drawCircle(localPos.x, localPos.y, PainterBrush.size * this.getPressure(event))
 
       // brush.endFill()
 
@@ -98,11 +107,11 @@ export class Brush {
       // using a line
       if (this.lastDrawnPoint) {
         const lastDrawnPoint = this.lastDrawnPoint
-        brush
+        this.graphics
           // .clear()
-          .lineStyle({ width: Brush.size * 2 * this.getPressure(event), color: Brush.color })
+          .lineStyle({ width: PainterBrush.size * 2 * this.getPressure(event), color: PainterBrush.color })
           .moveTo(lastDrawnPoint.x, lastDrawnPoint.y)
-          .lineTo(x, y)
+          .lineTo(localPos.x, localPos.y)
 
         // line.endFill()
         // app.renderer.render(line, {
@@ -112,20 +121,26 @@ export class Brush {
         // })
       }
       this.lastDrawnPoint = this.lastDrawnPoint || new PIXI.Point()
-      this.lastDrawnPoint.set(x, y)
+      this.lastDrawnPoint.set(localPos.x, localPos.y)
     }
   }
 
   pointerUp(_event: PIXI.FederatedPointerEvent) {
+    if (!PainterBrush.enabled)
+      return
+
     this.dragging = false
     this.lastDrawnPoint = null
 
-    this.brush.endFill()
+    this.graphics.endFill()
 
     this.painter.emitter.emit('brush:up')
   }
 
   pointerEnter(event: PIXI.FederatedPointerEvent) {
+    if (!PainterBrush.enabled)
+      return
+
     const { global: { x, y } } = event
     if (this.dragging)
       this.lastDrawnPoint?.set(x, y)
@@ -134,11 +149,14 @@ export class Brush {
   }
 
   pointerOut(event: PIXI.FederatedPointerEvent) {
+    if (!PainterBrush.enabled)
+      return
+
     const { global: { x, y } } = event
     if (this.lastDrawnPoint) {
-      this.brush
+      this.graphics
       // .clear()
-        .lineStyle({ width: Brush.size * 2 * this.getPressure(event), color: Brush.color })
+        .lineStyle({ width: PainterBrush.size * 2 * this.getPressure(event), color: PainterBrush.color })
         .moveTo(this.lastDrawnPoint.x, this.lastDrawnPoint.y)
         .lineTo(x, y)
 
@@ -149,18 +167,18 @@ export class Brush {
   }
 
   destroy() {
-    this.brush.destroy()
-    const app = this.painter.app
-    if (app) {
-      app.stage.off('pointerdown')
-      app.stage.off('pointerup')
-      app.stage.off('pointerupoutside')
-      app.stage.off('pointermove')
-      app.stage.off('pointerout')
+    this.graphics.destroy()
+    const { board } = this.painter
+    if (board) {
+      board.container.off('pointerdown')
+      board.container.off('pointerup')
+      board.container.off('pointerupoutside')
+      board.container.off('pointermove')
+      board.container.off('pointerout')
     }
   }
 }
 
 export function createBrush(painter: Painter, _options: BrushOptions = defaultBrushOptions) {
-  return new Brush(painter)
+  return new PainterBrush(painter)
 }

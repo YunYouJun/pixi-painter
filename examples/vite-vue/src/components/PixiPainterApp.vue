@@ -18,13 +18,14 @@ onMounted(() => {
   // targetCanvas.value.height = tParent?.clientHeight || 0
 
   painter.value = createPainter({
-    canvas: srcCanvas.value,
+    debug: import.meta.env.DEV,
+    view: srcCanvas.value,
     size: {
       width: 800,
       height: 800,
     },
   })
-  painter.value.background.color = 0xFFFFFF
+  // painter.value.background.color = 0xFFFFFF
 })
 </script>
 
