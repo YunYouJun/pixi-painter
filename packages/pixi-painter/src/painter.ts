@@ -7,6 +7,7 @@ import { PainterHistory } from './features/history'
 import type { PainterCanvas } from './canvas'
 import { createCanvas } from './canvas'
 import { PainterBoard } from './board'
+import { addImageDropListener } from './dom'
 
 export interface PainterOptions {
   debug?: boolean
@@ -82,6 +83,9 @@ export class Painter {
     const stage = this.app.stage
     stage.eventMode = 'static'
     stage.hitArea = this.app.screen
+
+    // add image drop
+    addImageDropListener(this, options.view)
 
     if (debug) {
       this.debug = debug

@@ -20,7 +20,7 @@
     "generate:site": "pnpm -C site run generate",
     "dev": "pnpm -C examples/vite-vue run dev",
     "dev:site": "pnpm -C site run dev",
-    "lint": "eslint . --no-warn-ignore",
+    "lint": "eslint .",
     "test": "vitest",
     "typecheck": "tsc --noEmit",
     "prepare": "simple-git-hooks",

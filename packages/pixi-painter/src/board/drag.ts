@@ -16,7 +16,6 @@ export function createBoardDrag(board: PainterBoard) {
     if (isSpacePressed) {
       dragTarget = board.container
       app.stage.on('pointermove', onDragMove)
-      // board.container.on('pointermove', onDragMove)
     }
   }
 
@@ -46,8 +45,6 @@ export function createBoardDrag(board: PainterBoard) {
   // space drag
   document.addEventListener('keydown', onKeyDown)
   document.addEventListener('keyup', onKeyUp)
-  // board.container.on('pointerdown', onDragStart)
-  // board.container.on('pointerdown', onDragStart)
   app.stage.on('pointerdown', onDragStart)
 
   function onDragMove(e: PIXI.FederatedPointerEvent) {
