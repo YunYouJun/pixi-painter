@@ -61,6 +61,10 @@ button:focus-visible {
   /* max-width: 1920px; */
   margin: 0 auto;
   text-align: center;
+  width: 100vw;
+  height: 100vh;
+
+  position: relative;
 }
 
 @media (prefers-color-scheme: light) {

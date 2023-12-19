@@ -9,10 +9,14 @@ export function createBoardDrag(board: PainterBoard) {
   let dragTarget: PIXI.Container | null = null
   let isSpacePressed = false
 
+  const app = board.painter.app
+  const emitter = board.painter.emitter
+
   function onDragStart() {
     if (isSpacePressed) {
       dragTarget = board.container
-      board.container.on('pointermove', onDragMove)
+      app.stage.on('pointermove', onDragMove)
+      // board.container.on('pointermove', onDragMove)
     }
   }
 
@@ -27,7 +31,6 @@ export function createBoardDrag(board: PainterBoard) {
       isSpacePressed = true
       setCursorStyle('grab')
       e.preventDefault()
-      board.container.eventMode = 'static'
 
       PainterBrush.enabled = false
     }
@@ -44,34 +47,36 @@ export function createBoardDrag(board: PainterBoard) {
   document.addEventListener('keydown', onKeyDown)
   document.addEventListener('keyup', onKeyUp)
   // board.container.on('pointerdown', onDragStart)
-  board.container.eventMode = 'static'
-  board.container.on('pointerdown', onDragStart)
+  // board.container.on('pointerdown', onDragStart)
+  app.stage.on('pointerdown', onDragStart)
 
   function onDragMove(e: PIXI.FederatedPointerEvent) {
     if (!dragTarget)
       return
 
-    dragTarget.position.x += e.movement.x / board.painter.app.renderer.resolution
-    dragTarget.position.y += e.movement.y / board.painter.app.renderer.resolution
+    dragTarget.position.x += e.movement.x / window.devicePixelRatio
+    dragTarget.position.y += e.movement.y / window.devicePixelRatio
+
+    emitter.emit('board:drag')
   }
 
   function onDragEnd() {
     if (dragTarget) {
-      board.container.off('pointermove', onDragMove)
+      app.stage.off('pointermove', onDragMove)
       dragTarget = null
       setCursorStyle('default')
     }
   }
 
-  board.container.on('pointerup', onDragEnd)
-  board.container.on('pointerupoutside', onDragEnd)
+  app.stage.on('pointerup', onDragEnd)
+  app.stage.on('pointerupoutside', onDragEnd)
 
   return {
     destroy() {
       document.removeEventListener('keydown', onKeyDown)
       document.removeEventListener('keyup', onKeyUp)
 
-      board.container.off('pointerdown', onDragStart)
+      app.stage.off('pointerdown', onDragStart)
     },
   }
 }

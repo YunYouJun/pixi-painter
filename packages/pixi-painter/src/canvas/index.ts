@@ -11,18 +11,17 @@ export class PainterCanvas {
   background: PIXI.Graphics
   shape: PIXI.Graphics
 
+  minScale = 0.3
+
   constructor(painter: Painter) {
     this.painter = painter
     this.container.name = 'canvasContainer'
 
-    const { app, options } = this.painter
+    const { options } = this.painter
     const { boardSize = {
       width: 512,
       height: 512,
     } } = options
-
-    this.container.x = app.view.width / 2
-    this.container.y = app.view.height / 2
 
     // mask shape
     const canvasShape = new PIXI.Graphics()
@@ -48,15 +47,19 @@ export class PainterCanvas {
 
     // event
     const boardContainer = this.painter.board.container
-    boardContainer.addEventListener('wheel', (e) => {
+    document.addEventListener('wheel', (e) => {
       const scroll = Math.sign(e.deltaY) * Math.min(Math.abs(e.deltaY), 50)
-      const scale = Math.max(boardContainer.scale.x * (1 + scroll / 500), 0.5)
+      const scale = Math.max(boardContainer.scale.x * (1 + scroll / 500), this.minScale)
       // canvasShape.scale.set(scale)
       // canvasBg.scale.set(scale)
-
       // todo fix scroll
       // console.log(e)
-      boardContainer.pivot.set(e.global.x, e.global.y)
+      // console.log(scale)
+      // console.log(e.global.x, e.global.y)
+      // console.log(e.getLocalPosition(this.container))
+      // boardContainer.pivot.set(e.offsetX, e.offsetY)
+      // console.log(boardContainer.position.x, boardContainer.position.y)
+      // boardContainer.position.set(e.offsetX, e.offsetY)
       boardContainer.scale.set(scale)
       // this.painter.brush.graphics.scale.set(scale)
     })

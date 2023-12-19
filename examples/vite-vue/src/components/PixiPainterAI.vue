@@ -3,7 +3,7 @@ import { onMounted, ref } from 'vue'
 import type { Painter } from 'pixi-painter'
 import { createPainter } from 'pixi-painter'
 
-import '@advjs/blender-ui/styles/css-vars.scss'
+import '@advjs/blender-ui/client/styles/css-vars.scss'
 import consola from 'consola'
 import axios from 'axios'
 
@@ -84,15 +84,6 @@ onMounted(() => {
       <PainterControls :painter="painter" class="absolute left-1" />
       <PainterOptionsBar :painter="painter" class="absolute left-1 top-1" />
     </template>
-
-    <Suspense>
-      <ClientOnly />
-      <template #fallback>
-        <div italic op50>
-          <span animate-pulse>Loading...</span>
-        </div>
-      </template>
-    </Suspense>
 
     <div class="canvas-container" grid="~ cols-2" gap="2">
       <div h-full w-full text-center shadow>

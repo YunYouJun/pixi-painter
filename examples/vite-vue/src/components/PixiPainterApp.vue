@@ -5,6 +5,7 @@ import { createPainter } from 'pixi-painter'
 // import { useStorage } from '@vueuse/core'
 
 const srcCanvas = ref<HTMLCanvasElement>()
+const targetCanvas = ref<HTMLCanvasElement>()
 const painter = ref<Painter>()
 // const targetCanvas = ref<HTMLCanvasElement>()
 // const inputPrompt = useStorage('pp:prompt', '椅子， 杰作, 最好质量，')
@@ -21,8 +22,8 @@ onMounted(() => {
     debug: import.meta.env.DEV,
     view: srcCanvas.value,
     size: {
-      width: 800,
-      height: 800,
+      width: window.innerWidth,
+      height: window.innerHeight,
     },
   })
   // painter.value.background.color = 0xFFFFFF
@@ -30,14 +31,18 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
+  <div relative h-screen w-screen overflow="hidden">
     <template v-if="painter">
       <PainterControls :painter="painter" class="absolute left-2 top-10" />
       <PainterOptionsBar class="absolute left-2 top-2" />
     </template>
 
     <div h-full w-full text-center shadow>
-      <canvas ref="srcCanvas" width="768" height="768" class="m-auto rounded" />
+      <canvas ref="srcCanvas" class="m-auto h-full w-full rounded" />
+    </div>
+
+    <div class="absolute bottom-0 right-0 h-80 w-80 rounded" bg-gray>
+      <canvas ref="targetCanvas" />
     </div>
   </div>
 </template>

@@ -46,11 +46,8 @@ export class PainterBrush {
    * @inner
    */
   setup(painter: Painter) {
-    const { app, board } = painter
-    // const parent = this
-    board.container.eventMode = 'static'
-    board.container.hitArea = app.screen
-    board.container
+    const { app } = painter
+    app.stage
       .on('pointerdown', this.pointerDown.bind(this))
       .on('pointerup', this.pointerUp.bind(this))
       .on('pointerupoutside', this.pointerUp.bind(this))
@@ -168,14 +165,12 @@ export class PainterBrush {
 
   destroy() {
     this.graphics.destroy()
-    const { board } = this.painter
-    if (board) {
-      board.container.off('pointerdown')
-      board.container.off('pointerup')
-      board.container.off('pointerupoutside')
-      board.container.off('pointermove')
-      board.container.off('pointerout')
-    }
+    const { app } = this.painter
+    app.stage.off('pointerdown')
+    app.stage.off('pointerup')
+    app.stage.off('pointerupoutside')
+    app.stage.off('pointermove')
+    app.stage.off('pointerout')
   }
 }
 

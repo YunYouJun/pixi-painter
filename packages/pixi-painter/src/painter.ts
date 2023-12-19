@@ -25,6 +25,7 @@ export interface PainterOptions {
    */
   view: HTMLCanvasElement
   // ...
+  resolution?: number
 }
 
 export interface PainterStore {}
@@ -61,21 +62,27 @@ export class Painter {
     const {
       size: { width, height } = { width: 768, height: 768 },
       debug = false,
+      resolution = window.devicePixelRatio || 1,
     } = options
 
     this.app = new PIXI.Application({
       view: options.view,
-      resizeTo: window,
+      // resizeTo: window,
       // backgroundColor: 0xFFFFFF,
       backgroundColor: 0x333333,
       width,
       height,
 
       antialias: true,
+      resolution,
 
       // for toBlob
       preserveDrawingBuffer: true,
     })
+    const stage = this.app.stage
+    stage.eventMode = 'static'
+    stage.hitArea = this.app.screen
+
     if (debug) {
       this.debug = debug
       // @ts-expect-error pixi-inspector
