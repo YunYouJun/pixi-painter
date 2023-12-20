@@ -13,12 +13,28 @@ function onBackgroundColorChange(color: number) {
   if (background)
     background.color = color
 }
+
+function importImage() {
+  const input = document.createElement('input')
+  input.type = 'file'
+  input.accept = 'image/*'
+  input.onchange = () => {
+    const file = input.files?.[0]
+    if (!file)
+      return
+
+    props.painter.loadImage(URL.createObjectURL(file))
+  }
+  input.click()
+}
 </script>
 
 <template>
   <!-- eslint-disable vue/no-mutating-props -->
   <div rounded-lg bg="dark-100" flex="~ col" gap="1" p="1" text-white>
-    <PainterIconButton icon="i-ph-paint-brush" />
+    <PainterIconButton icon="i-ph-paint-brush" @click="painter.useBrush()" />
+    <PainterIconButton icon="i-ph-image" @click="importImage" />
+    <PainterIconButton icon="i-ph-selection" @click="painter.useSelection()" />
     <div my-1>
       <PainterColorPicker v-model="PainterBrush.color" />
     </div>

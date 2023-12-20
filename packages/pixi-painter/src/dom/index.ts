@@ -28,13 +28,9 @@ export function addImageDropListener(
     const file = e.dataTransfer?.files[0]
 
     if (file) {
-      const imgSprite = await importImageSprite(URL.createObjectURL(file))
-      const layer = new EditableLayer()
-      painter.canvas.container.addChild(layer)
-      layer.addChild(imgSprite)
-      layer.updateTransform()
-      layer.updateTransformBoundingBox()
-      painter.board.container.addChild(layer.boundingBox)
+      painter.loadImage(
+        URL.createObjectURL(file),
+      )
 
       callback?.(file)
     }

@@ -149,13 +149,14 @@ export class PainterBrush {
     if (!PainterBrush.enabled)
       return
 
-    const { global: { x, y } } = event
+    const { global } = event
     if (this.lastDrawnPoint) {
+      const localPos = event.getLocalPosition(this.painter.canvas.container, global)
       this.graphics
       // .clear()
         .lineStyle({ width: PainterBrush.size * 2 * this.getPressure(event), color: PainterBrush.color })
         .moveTo(this.lastDrawnPoint.x, this.lastDrawnPoint.y)
-        .lineTo(x, y)
+        .lineTo(localPos.x, localPos.y)
 
       this.lastDrawnPoint = null
     }
@@ -166,11 +167,11 @@ export class PainterBrush {
   destroy() {
     this.graphics.destroy()
     const { app } = this.painter
-    app.stage.off('pointerdown')
-    app.stage.off('pointerup')
-    app.stage.off('pointerupoutside')
-    app.stage.off('pointermove')
-    app.stage.off('pointerout')
+    app.stage.off('pointerdown', this.pointerDown.bind(this))
+    app.stage.off('pointerup', this.pointerUp.bind(this))
+    app.stage.off('pointerupoutside', this.pointerUp.bind(this))
+    app.stage.off('pointermove', this.pointerMove.bind(this))
+    app.stage.off('pointerout', this.pointerOut.bind(this))
   }
 }
 

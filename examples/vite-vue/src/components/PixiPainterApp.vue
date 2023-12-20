@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { shallowRef } from 'vue'
+
 import type { Painter } from 'pixi-painter'
 import { createPainter } from 'pixi-painter'
 
@@ -6,11 +8,13 @@ import { createPainter } from 'pixi-painter'
 
 const srcCanvas = ref<HTMLCanvasElement>()
 const targetCanvas = ref<HTMLCanvasElement>()
-const painter = ref<Painter>()
+
+// ref will proxy painter
+const painter = shallowRef<Painter>()
 // const targetCanvas = ref<HTMLCanvasElement>()
 // const inputPrompt = useStorage('pp:prompt', '椅子， 杰作, 最好质量，')
 
-onMounted(() => {
+onMounted(async () => {
   if (!srcCanvas.value)
     return
 
@@ -27,6 +31,8 @@ onMounted(() => {
     },
   })
   // painter.value.background.color = 0xFFFFFF
+
+  painter.value?.loadImage('https://pixijs.com/assets/flowerTop.png')
 })
 </script>
 

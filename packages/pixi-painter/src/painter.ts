@@ -1,6 +1,5 @@
 import * as PIXI from 'pixi.js'
-import type { PainterBrush } from './brush'
-import { createBrush } from './brush'
+import { PainterBrush, createBrush } from './brush'
 import { statement } from './statement'
 import { createEmitter } from './event'
 import { PainterHistory } from './features/history'
@@ -8,6 +7,12 @@ import type { PainterCanvas } from './canvas'
 import { createCanvas } from './canvas'
 import { PainterBoard } from './board'
 import { addImageDropListener } from './dom'
+import { importImageSprite } from './import'
+import { EditableLayer } from './layers'
+import { sleep } from './utils'
+import { Keyboard } from './keyboard'
+
+import '@pixi/math-extras'
 
 export interface PainterOptions {
   debug?: boolean
@@ -41,6 +46,7 @@ export class Painter {
   options: PainterOptions
   app: PIXI.Application
   emitter = createEmitter()
+  keyboard = new Keyboard(this)
 
   /**
    * board
@@ -121,6 +127,47 @@ export class Painter {
    */
   get background() {
     return this.app.renderer.background
+  }
+
+  async loadImage(src: string) {
+    const imgSprite = await importImageSprite(src)
+    const { board, canvas } = this
+    const layer = new EditableLayer(this)
+    layer.eventMode = 'static'
+    canvas.container.addChild(layer)
+    layer.addChild(imgSprite)
+    layer.updateTransform()
+    layer.updateTransformBoundingBox()
+    board.container.addChild(layer.boundingBoxContainer)
+  }
+
+  showBoundingBox() {
+    this.board.container.children.forEach((child) => {
+      if (child.name === 'boundingBoxContainer')
+        child.visible = true
+    })
+  }
+
+  hideBoundingBox() {
+    this.board.container.children.forEach((child) => {
+      if (child.name === 'boundingBoxContainer')
+        child.visible = false
+    })
+  }
+
+  useBrush() {
+    PainterBrush.enabled = true
+    this.hideBoundingBox()
+  }
+
+  useEraser() {
+    PainterBrush.enabled = false
+    this.hideBoundingBox()
+  }
+
+  useSelection() {
+    PainterBrush.enabled = false
+    this.showBoundingBox()
   }
 }
 

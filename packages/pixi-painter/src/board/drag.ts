@@ -1,33 +1,36 @@
 import type { PainterBoard } from 'src/board'
 import type * as PIXI from 'pixi.js'
-import { PainterBrush } from '../brush'
+import { PainterBrush } from '../index'
 
 /**
  * press space to drag board
  */
 export function createBoardDrag(board: PainterBoard) {
-  let dragTarget: PIXI.Container | null = null
-  let isSpacePressed = false
+  let dragTargets: PIXI.Container[] = []
+  // space press
+  let isKeyPressed = false
 
   const app = board.painter.app
-  const emitter = board.painter.emitter
+  const area = app.stage
+  const containers = [board.container]
+  const keyCode = 'Space'
 
   function onDragStart() {
-    if (isSpacePressed) {
-      dragTarget = board.container
-      app.stage.on('pointermove', onDragMove)
+    if (isKeyPressed) {
+      dragTargets = containers
+      area.on('pointermove', onDragMove)
     }
   }
 
   function setCursorStyle(style: PIXI.ICanvasStyle['cursor']) {
-    board.container.cursor = style as string
-    if (board.painter.app.view)
-      board.painter.app.view.style!.cursor = style
+    containers.forEach(container => container.cursor = style as string)
+    if (app.view)
+      app.view.style!.cursor = style
   }
 
   function onKeyDown(e: KeyboardEvent) {
-    if (e.code === 'Space') {
-      isSpacePressed = true
+    if (e.code === keyCode) {
+      isKeyPressed = true
       setCursorStyle('grab')
       e.preventDefault()
 
@@ -35,8 +38,8 @@ export function createBoardDrag(board: PainterBoard) {
     }
   }
   function onKeyUp(e: KeyboardEvent) {
-    if (e.code === 'Space') {
-      isSpacePressed = false
+    if (e.code === keyCode) {
+      isKeyPressed = false
       setCursorStyle('default')
 
       PainterBrush.enabled = true
@@ -45,35 +48,37 @@ export function createBoardDrag(board: PainterBoard) {
   // space drag
   document.addEventListener('keydown', onKeyDown)
   document.addEventListener('keyup', onKeyUp)
-  app.stage.on('pointerdown', onDragStart)
 
   function onDragMove(e: PIXI.FederatedPointerEvent) {
-    if (!dragTarget)
+    if (!dragTargets.length)
       return
 
-    dragTarget.position.x += e.movement.x / window.devicePixelRatio
-    dragTarget.position.y += e.movement.y / window.devicePixelRatio
-
-    emitter.emit('board:drag')
+    dragTargets.forEach((dragTarget) => {
+      dragTarget.position.x += e.movement.x / dragTarget.parent.scale.x
+      dragTarget.position.y += e.movement.y / dragTarget.parent.scale.y
+    })
   }
 
   function onDragEnd() {
-    if (dragTarget) {
-      app.stage.off('pointermove', onDragMove)
-      dragTarget = null
+    if (dragTargets.length) {
+      area.off('pointermove', onDragMove)
+      dragTargets = []
       setCursorStyle('default')
     }
   }
 
-  app.stage.on('pointerup', onDragEnd)
-  app.stage.on('pointerupoutside', onDragEnd)
+  area.on('pointerdown', onDragStart)
+  area.on('pointerup', onDragEnd)
+  area.on('pointerupoutside', onDragEnd)
 
   return {
     destroy() {
-      document.removeEventListener('keydown', onKeyDown)
-      document.removeEventListener('keyup', onKeyUp)
+      if (keyCode) {
+        document.removeEventListener('keydown', onKeyDown)
+        document.removeEventListener('keyup', onKeyUp)
+      }
 
-      app.stage.off('pointerdown', onDragStart)
+      area.off('pointerdown', onDragStart)
     },
   }
 }
