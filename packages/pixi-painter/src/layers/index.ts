@@ -33,6 +33,8 @@ export class EditableLayer extends PIXI.Container {
   boundingBoxContainer = new PIXI.Container()
   boundingBox = new PIXI.Graphics()
 
+  handleSize = 12
+
   controlPoints: Record<ControlPointPosition, PIXI.Sprite> = {
     TOP_LEFT: new PIXI.Sprite(PIXI.Texture.WHITE),
     TOP_RIGHT: new PIXI.Sprite(PIXI.Texture.WHITE),
@@ -84,9 +86,11 @@ export class EditableLayer extends PIXI.Container {
       sprite.anchor.set(0.5)
       sprite.alpha = 0.5
       sprite.cursor = getCursor(key as ControlPointPosition)
-      sprite.width = 10
-      sprite.height = 10
+      sprite.width = this.handleSize
+      sprite.height = this.handleSize
       this.boundingBoxContainer.addChild(sprite)
+
+      sprite.eventMode = 'static'
 
       if (key === 'ROTATE') {
         createRotateHandle({
@@ -105,6 +109,11 @@ export class EditableLayer extends PIXI.Container {
           key: key as ControlPointPosition,
         })
       }
+    })
+
+    // contextmenu
+    this.on('rightclick', (e) => {
+      e.stopPropagation()
     })
   }
 
@@ -140,7 +149,7 @@ export class EditableLayer extends PIXI.Container {
       ROTATE: [bounds.x + bounds.width / 2, bounds.y - 25], // top center
     } as const
 
-    const controlPointSize = 10
+    const controlPointSize = this.handleSize
     for (const key in controlPointsPos) {
       const [x, y] = controlPointsPos[key as keyof typeof controlPointsPos]
       boundingBox.beginFill(0xFFFFFF, 0.5)

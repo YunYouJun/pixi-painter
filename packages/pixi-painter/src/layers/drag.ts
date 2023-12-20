@@ -1,4 +1,4 @@
-import type * as PIXI from 'pixi.js'
+import * as PIXI from 'pixi.js'
 import type { Painter } from '../painter'
 import type { EditableLayer } from '.'
 
@@ -20,14 +20,20 @@ export function createDrag({
   let dragTargets: PIXI.Container[] = []
   // space press
   const area = app.stage
-  const isSpacePressed = () => painter.keyboard.isKeyPressed('Space')
-  // 按下空格或者没有显示边框 不可拖动
-  const canDrag = () => !isSpacePressed() && layer.boundingBoxContainer.visible
 
-  function onDragStart() {
+  const isSpacePressed = () => painter.keyboard.isPressed('Space')
+  // 按下空格或者没有显示边框 不可拖动
+  const canDrag = () => {
+    return !isSpacePressed() && layer.boundingBoxContainer.visible
+  }
+
+  let offset = new PIXI.Point()
+
+  function onDragStart(e: PIXI.FederatedPointerEvent) {
     if (!canDrag())
       return
 
+    offset = e.global.subtract(layer.getGlobalPosition())
     dragTargets = containers
     area.on('pointermove', onDragMove)
   }
@@ -46,8 +52,8 @@ export function createDrag({
       return
 
     dragTargets.forEach((dragTarget) => {
-      dragTarget.position.x += e.movement.x / dragTarget.parent.scale.x
-      dragTarget.position.y += e.movement.y / dragTarget.parent.scale.y
+      const newPos = dragTarget.parent!.toLocal(e.global.subtract(offset), undefined)
+      dragTarget.position = newPos
     })
   }
 
@@ -62,6 +68,8 @@ export function createDrag({
     }
   }
 
+  // layer.on('pointerdown', onDragStart, layer)
+  // 超出画布边界也可以拖动
   area.on('pointerdown', onDragStart)
   area.on('pointerup', onDragEnd)
   area.on('pointerupoutside', onDragEnd)

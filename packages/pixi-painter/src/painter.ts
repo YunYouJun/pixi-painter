@@ -9,7 +9,6 @@ import { PainterBoard } from './board'
 import { addImageDropListener } from './dom'
 import { importImageSprite } from './import'
 import { EditableLayer } from './layers'
-import { sleep } from './utils'
 import { Keyboard } from './keyboard'
 
 import '@pixi/math-extras'
@@ -63,6 +62,11 @@ export class Painter {
   store: PainterStore
 
   history = new PainterHistory()
+
+  /**
+   * context menu
+   */
+  contextMenu = new PIXI.Container()
 
   constructor(options: PainterOptions) {
     this.options = options
@@ -118,6 +122,11 @@ export class Painter {
 
     this.app.stage.name = 'stage'
     this.app.stage.addChild(this.board.container)
+
+    options.view.addEventListener('contextmenu', (e) => {
+      e.preventDefault()
+      // console.log(e)
+    })
   }
 
   /**
@@ -168,6 +177,10 @@ export class Painter {
   useSelection() {
     PainterBrush.enabled = false
     this.showBoundingBox()
+  }
+
+  cancelSelection() {
+    this.hideBoundingBox()
   }
 }
 

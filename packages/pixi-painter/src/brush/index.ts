@@ -33,6 +33,8 @@ export class PainterBrush {
    */
   static enablePressure = true
 
+  static graphicsPool: PIXI.Graphics[] = []
+
   /**
    * prepare circle texture, that will be our brush
    */
@@ -132,6 +134,12 @@ export class PainterBrush {
     this.graphics.endFill()
 
     this.painter.emitter.emit('brush:up')
+
+    // new draw
+    PainterBrush.graphicsPool.push(this.graphics)
+    this.graphics = new PIXI.Graphics().beginFill(PainterBrush.color)
+    this.graphics.name = `brushGraphics ${new Date().getTime()}`
+    this.painter.canvas.container.addChild(this.graphics)
   }
 
   pointerEnter(event: PIXI.FederatedPointerEvent) {

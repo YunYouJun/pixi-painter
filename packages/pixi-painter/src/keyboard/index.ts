@@ -2,7 +2,8 @@ import type { Painter } from '../painter'
 
 export class Keyboard {
   painter: Painter
-  keyState = new Map<KeyboardEvent['key'], boolean>()
+  // code 物理键盘 一致
+  keyState = new Map<KeyboardEvent['code'], boolean>()
 
   constructor(painter: Painter) {
     this.painter = painter
@@ -13,23 +14,58 @@ export class Keyboard {
 
   // initShortcuts() { }
 
-  isKeyPressed(key: KeyboardEvent['key']) {
-    return this.keyState.get(key) || false
+  isPressed(code: KeyboardEvent['code']) {
+    return this.keyState.get(code) || false
   }
 
   keydown(e: KeyboardEvent) {
-    this.keyState.set(e.key, true)
+    this.keyState.set(e.code, true)
 
-    if (e.key === 'b')
-      this.painter.useBrush()
-    else if (e.key === 'e')
-      this.painter.useEraser()
-    else if (e.key === 's')
-      this.painter.useSelection()
+    switch (e.code) {
+      // case 'ArrowLeft':
+      //   this.painter.moveSelection(-1, 0)
+      //   break
+      // case 'ArrowRight':
+      //   this.painter.moveSelection(1, 0)
+      //   break
+      // case 'ArrowUp':
+      //   this.painter.moveSelection(0, -1)
+      //   break
+      // case 'ArrowDown':
+      //   this.painter.moveSelection(0, 1)
+      //   break
+      // case 'Delete':
+      //   this.painter.deleteSelection()
+      //   break
+      case 'Escape':
+        this.painter.cancelSelection()
+        break
+      case 'KeyB':
+        this.painter.useBrush()
+        break
+      case 'KeyE':
+        this.painter.useEraser()
+        break
+      case 'KeyS':
+        this.painter.useSelection()
+        break
+      // case 'z':
+      //   if (e.ctrlKey)
+      //     this.painter.undo()
+      //   if (e.shiftKey && e.ctrlKey)
+      //     this.painter.redo()
+      //   break
+      // help
+      case 'Slash':
+        // todo show help
+        break
+      default:
+        break
+    }
   }
 
   keyup(e: KeyboardEvent) {
-    this.keyState.set(e.key, false)
+    this.keyState.set(e.code, false)
   }
 
   destroy() {
