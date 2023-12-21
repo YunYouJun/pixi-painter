@@ -82,6 +82,9 @@ importers:
       '@pixi/math-extras':
         specifier: ^7.3.2
         version: 7.3.2(@pixi/core@7.3.2)
+      consola:
+        specifier: ^3.2.3
+        version: 3.2.3
       mitt:
         specifier: ^3.0.1
         version: 3.0.1
@@ -5467,7 +5470,6 @@ packages:
   /consola@3.2.3:
     resolution: {integrity: sha512-I5qxpzLv+sJhTVEoLYNcTW+bThDCPsit0vLNKShZx6rLtpilNpmmeTPaeqJb9ZE9dV3DGaeby6Vuhrw38WjeyQ==}
     engines: {node: ^14.18.0 || >=16.10.0}
-    dev: true
 
   /console-control-strings@1.1.0:
     resolution: {integrity: sha512-ty/fTekppD2fIwRvnZAVdeOiGd1c7YXEixbgJTNzqcxJWKQnjJ/V1bNEEE6hygpM3WjwHFUVK6HTjWSzV4a8sQ==}

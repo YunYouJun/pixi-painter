@@ -1,5 +1,5 @@
-import type { Painter } from 'src'
 import * as PIXI from 'pixi.js'
+import type { Painter } from '../painter'
 
 export class PainterCanvas {
   container = new PIXI.Container()

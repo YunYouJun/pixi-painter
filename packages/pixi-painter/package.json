@@ -17,6 +17,7 @@
   "dependencies": {
     "@ctrl/tinycolor": "^4.0.2",
     "@pixi/math-extras": "^7.3.2",
+    "consola": "^3.2.3",
     "mitt": "^3.0.1",
     "pixi.js": "^7.3.2"
   },
