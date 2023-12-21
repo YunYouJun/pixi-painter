@@ -61,7 +61,7 @@ export class Painter {
   brush: PainterBrush
   store: PainterStore
 
-  history = new PainterHistory()
+  history = new PainterHistory(this)
 
   /**
    * context menu

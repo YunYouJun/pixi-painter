@@ -1,8 +1,6 @@
 // dom eventListener
 
-import { EditableLayer } from '../layers'
 import type { Painter } from '../painter'
-import { importImageSprite } from '../import'
 
 export function addImageDropListener(
   painter: Painter,

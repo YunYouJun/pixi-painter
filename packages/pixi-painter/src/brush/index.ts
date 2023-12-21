@@ -135,6 +135,25 @@ export class PainterBrush {
 
     this.painter.emitter.emit('brush:up')
 
+    // history
+    const graphics = this.graphics
+    this.painter.history.record({
+      undo: () => {
+        if (graphics) {
+          graphics.visible = false
+          // remove from pool
+          PainterBrush.graphicsPool.pop()
+        }
+      },
+      redo: () => {
+        if (graphics) {
+          graphics.visible = true
+          // add to pool
+          PainterBrush.graphicsPool.push(graphics)
+        }
+      },
+    })
+
     // new draw
     PainterBrush.graphicsPool.push(this.graphics)
     this.graphics = new PIXI.Graphics().beginFill(PainterBrush.color)

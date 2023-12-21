@@ -26,7 +26,7 @@
     "@pinia/nuxt": "^0.5.1",
     "@unocss/eslint-config": "^0.58.0",
     "@unocss/nuxt": "^0.58.0",
-    "@vite-pwa/nuxt": "^0.3.5",
+    "@vite-pwa/nuxt": "^0.3.6",
     "@vueuse/nuxt": "^10.7.0",
     "axios": "^1.6.2",
     "consola": "^3.2.3",

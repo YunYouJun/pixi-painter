@@ -49,13 +49,14 @@ export class Keyboard {
       case 'KeyS':
         this.painter.useSelection()
         break
-      // case 'z':
-      //   if (e.ctrlKey)
-      //     this.painter.undo()
-      //   if (e.shiftKey && e.ctrlKey)
-      //     this.painter.redo()
-      //   break
-      // help
+      case 'KeyZ':
+        // macos: Command + Z
+        // windows: Ctrl + Z
+        if (e.shiftKey && e.metaKey)
+          this.painter.history.redo()
+        else if (e.metaKey)
+          this.painter.history.undo()
+        break
       case 'Slash':
         // todo show help
         break

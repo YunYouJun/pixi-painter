@@ -33,7 +33,7 @@ importers:
         specifier: ^0.58.0
         version: 0.58.0(postcss@8.4.32)(vite@5.0.10)
       vitest:
-        specifier: ^1.0.4
+        specifier: ^1.1.0
         version: 1.1.0
 
   examples/vite-vue:
@@ -126,8 +126,8 @@ importers:
         specifier: ^0.58.0
         version: 0.58.0(postcss@8.4.32)(rollup@2.79.1)(vite@5.0.10)(webpack@5.89.0)
       '@vite-pwa/nuxt':
-        specifier: ^0.3.5
-        version: 0.3.5(rollup@2.79.1)(vite@5.0.10)(workbox-build@7.0.0)(workbox-window@7.0.0)
+        specifier: ^0.3.6
+        version: 0.3.6(rollup@2.79.1)(vite@5.0.10)(workbox-build@7.0.0)(workbox-window@7.0.0)
       '@vueuse/nuxt':
         specifier: ^10.7.0
         version: 10.7.0(nuxt@3.8.2)(rollup@2.79.1)(vue@3.3.13)
@@ -2624,6 +2624,7 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
+      napi-wasm: 1.1.0
     dev: true
     bundledDependencies:
       - napi-wasm
@@ -4255,8 +4256,8 @@ packages:
       - supports-color
     dev: true
 
-  /@vite-pwa/nuxt@0.3.5(rollup@2.79.1)(vite@5.0.10)(workbox-build@7.0.0)(workbox-window@7.0.0):
-    resolution: {integrity: sha512-ighafr2qyLCRu6SS2+z2NYg/UWAVEJVetJTid8EQr3KgIrDCCfgfJKc3EEaiT7OF0M3/oppDcguemHkaKwfNEQ==}
+  /@vite-pwa/nuxt@0.3.6(rollup@2.79.1)(vite@5.0.10)(workbox-build@7.0.0)(workbox-window@7.0.0):
+    resolution: {integrity: sha512-EEBiSUF0pbcFTLK8KpbkVb0YVNe9MKOHmaKE3siUJoeB5TZmCN8QqqPk9F5BsBEciy1JrxFtjCoZldLdxO2+0Q==}
     dependencies:
       '@nuxt/kit': 3.8.2(rollup@2.79.1)
       pathe: 1.1.1
@@ -8340,6 +8341,10 @@ packages:
     resolution: {integrity: sha512-7ZtY5KTCNheRGfEFxnedV5zFiORN1+Y1N6zvPTnHQd8ENUvfaDBeuJDZb2bN/oXwXxu3qkTXDzy57W5vAmDTBw==}
     engines: {node: ^14 || ^16 || >=18}
     hasBin: true
+    dev: true
+
+  /napi-wasm@1.1.0:
+    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
     dev: true
 
   /natural-compare-lite@1.4.0:
