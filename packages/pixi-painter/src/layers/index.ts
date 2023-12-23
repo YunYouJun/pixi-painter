@@ -6,6 +6,8 @@ import type { ControlPointPosition } from './scale'
 import { createScaleHandle } from './scale'
 import { createRotateHandle } from './rotate'
 
+let layerMenuContainer: HTMLDivElement | null = null
+
 function getCursor(key: ControlPointPosition) {
   switch (key) {
     case 'TOP_LEFT':
@@ -28,6 +30,7 @@ function getCursor(key: ControlPointPosition) {
 }
 
 export class EditableLayer extends PIXI.Container {
+  painter: Painter
   app: PIXI.Application
   /**
    * editor box container
@@ -36,6 +39,8 @@ export class EditableLayer extends PIXI.Container {
   boundingBox = new PIXI.Graphics()
 
   handleSize = 12
+
+  lastParent: PIXI.Container | null = null
 
   controlPoints: Record<ControlPointPosition, PIXI.Sprite> = {
     TOP_LEFT: new PIXI.Sprite(PIXI.Texture.WHITE),
@@ -55,6 +60,7 @@ export class EditableLayer extends PIXI.Container {
 
   constructor(painter: Painter) {
     super()
+    this.painter = painter
     const app = painter.app
     this.eventMode = 'static'
     // this.on('pointerdown', (e) => {
@@ -94,7 +100,6 @@ export class EditableLayer extends PIXI.Container {
           layer: this,
           app,
           handleSprite: sprite,
-          container: this,
         })
       }
       else if (key === 'CENTER') {
@@ -120,6 +125,69 @@ export class EditableLayer extends PIXI.Container {
     // contextmenu
     this.on('rightclick', (e) => {
       e.stopPropagation()
+
+      if (layerMenuContainer)
+        layerMenuContainer.remove()
+
+      const menuContainer = document.createElement('div')
+      layerMenuContainer = menuContainer
+      menuContainer.style.position = 'absolute'
+      menuContainer.style.left = `${e.global.x}px`
+      menuContainer.style.top = `${e.global.y}px`
+      menuContainer.style.zIndex = '1000'
+      menuContainer.style.background = '#fff'
+      menuContainer.style.border = '1px solid #ccc'
+      menuContainer.style.padding = '5px'
+      menuContainer.style.boxShadow = '0 0 10px #ccc'
+      menuContainer.style.borderRadius = '5px'
+      menuContainer.style.cursor = 'default'
+      menuContainer.style.userSelect = 'none'
+      menuContainer.style.fontSize = '14px'
+      menuContainer.style.fontFamily = 'sans-serif'
+      menuContainer.style.color = '#333'
+      menuContainer.style.display = 'flex'
+      menuContainer.style.flexDirection = 'column'
+      menuContainer.style.alignItems = 'flex-start'
+      menuContainer.style.justifyContent = 'flex-start'
+      menuContainer.style.minWidth = '100px'
+
+      const deleteBtn = document.createElement('div')
+      deleteBtn.style.padding = '5px'
+      deleteBtn.style.cursor = 'pointer'
+      deleteBtn.style.userSelect = 'none'
+      deleteBtn.style.borderRadius = '5px'
+      deleteBtn.style.background = '#eee'
+      deleteBtn.style.color = '#333'
+      deleteBtn.style.fontSize = '14px'
+      deleteBtn.style.fontFamily = 'sans-serif'
+      deleteBtn.style.display = 'flex'
+      deleteBtn.style.alignItems = 'center'
+      deleteBtn.style.justifyContent = 'center'
+      deleteBtn.style.width = '100%'
+      deleteBtn.textContent = 'Delete'
+      deleteBtn.addEventListener('click', () => {
+        // this.destroy()
+        this.remove()
+
+        const { history } = painter
+        history.record({
+          undo: () => {
+            this.restore()
+          },
+          redo: () => {
+            this.remove()
+          },
+        })
+      })
+      menuContainer.appendChild(deleteBtn)
+
+      document.body.appendChild(menuContainer)
+
+      const removeMenu = () => {
+        menuContainer.remove()
+        document.removeEventListener('click', removeMenu)
+      }
+      document.addEventListener('click', removeMenu)
     })
   }
 
@@ -178,5 +246,25 @@ export class EditableLayer extends PIXI.Container {
     boundingBox.lineTo(rotateHandleX, rotateHandleY)
 
     return this.boundingBoxContainer
+  }
+
+  /**
+   * not destroy
+   */
+  remove() {
+    this.lastParent = this.parent
+    this.parent.removeChild(this)
+    this.painter.boundingBoxes.removeChild(this.boundingBoxContainer)
+  }
+
+  restore() {
+    this.lastParent?.addChild(this)
+    this.painter.boundingBoxes.addChild(this.boundingBoxContainer)
+  }
+
+  destroy(options?: boolean | PIXI.IDestroyOptions | undefined): void {
+    super.destroy(options)
+
+    this.boundingBoxContainer.destroy()
   }
 }
