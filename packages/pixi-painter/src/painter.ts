@@ -12,6 +12,16 @@ import { EditableLayer } from './layers'
 import { Keyboard } from './keyboard'
 
 import '@pixi/math-extras'
+import { PainterEraser, createEraser } from './eraser'
+
+export const PAINTER_TOOLS = [
+  'brush',
+  'eraser',
+  'image',
+  'selection',
+] as const
+
+export type PainterTool = typeof PAINTER_TOOLS[number]
 
 export interface PainterOptions {
   debug?: boolean
@@ -42,6 +52,8 @@ export function createStore(_options: PainterOptions): PainterStore {
 export class Painter {
   debug = false
 
+  tool = 'brush'
+
   options: PainterOptions
   app: PIXI.Application
   emitter = createEmitter()
@@ -59,6 +71,7 @@ export class Painter {
    */
   canvas: PainterCanvas
   brush: PainterBrush
+  eraser: PainterEraser
   store: PainterStore
 
   history = new PainterHistory(this)
@@ -109,6 +122,7 @@ export class Painter {
 
     this.canvas = createCanvas(this)
     this.brush = createBrush(this)
+    this.eraser = createEraser(this)
     // add mask for brush
     this.brush.graphics.mask = this.canvas.shape
 
@@ -127,6 +141,8 @@ export class Painter {
       e.preventDefault()
       // console.log(e)
     })
+
+    this.useTool('brush')
   }
 
   /**
@@ -148,6 +164,17 @@ export class Painter {
     layer.updateTransform()
     layer.updateTransformBoundingBox()
     board.container.addChild(layer.boundingBoxContainer)
+
+    this.history.record({
+      undo: () => {
+        layer.visible = false
+        layer.boundingBoxContainer.visible = false
+      },
+      redo: () => {
+        layer.visible = true
+        layer.boundingBoxContainer.visible = true
+      },
+    })
   }
 
   showBoundingBox() {
@@ -164,23 +191,61 @@ export class Painter {
     })
   }
 
+  useTool(name: PainterTool) {
+    this.emitter.emit('tool:change', name)
+    this.tool = name
+
+    PainterBrush.enabled = false
+    PainterEraser.enabled = false
+
+    switch (name) {
+      case 'brush':
+        this.useBrush()
+        break
+      case 'eraser':
+        this.useEraser()
+        break
+      case 'selection':
+        this.useSelection()
+        break
+      case 'image':
+        this.useImage()
+        break
+      default:
+        break
+    }
+  }
+
   useBrush() {
     PainterBrush.enabled = true
     this.hideBoundingBox()
   }
 
   useEraser() {
-    PainterBrush.enabled = false
+    PainterEraser.enabled = true
     this.hideBoundingBox()
   }
 
   useSelection() {
-    PainterBrush.enabled = false
     this.showBoundingBox()
   }
 
   cancelSelection() {
     this.hideBoundingBox()
+  }
+
+  useImage() {
+    const input = document.createElement('input')
+    input.type = 'file'
+    input.accept = 'image/*'
+    input.onchange = () => {
+      const file = input.files?.[0]
+      if (!file)
+        return
+
+      this.loadImage(URL.createObjectURL(file))
+    }
+    input.click()
   }
 }
 

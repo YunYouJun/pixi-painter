@@ -41,13 +41,17 @@ export class Keyboard {
         this.painter.cancelSelection()
         break
       case 'KeyB':
-        this.painter.useBrush()
+        this.painter.useTool('brush')
         break
       case 'KeyE':
-        this.painter.useEraser()
+        this.painter.useTool('eraser')
         break
       case 'KeyS':
-        this.painter.useSelection()
+        this.painter.useTool('selection')
+        break
+      case 'KeyI':
+        // import image
+        this.painter.useTool('image')
         break
       case 'KeyZ':
         // macos: Command + Z

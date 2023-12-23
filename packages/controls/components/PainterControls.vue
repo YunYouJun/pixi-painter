@@ -14,27 +14,46 @@ function onBackgroundColorChange(color: number) {
     background.color = color
 }
 
-function importImage() {
-  const input = document.createElement('input')
-  input.type = 'file'
-  input.accept = 'image/*'
-  input.onchange = () => {
-    const file = input.files?.[0]
-    if (!file)
-      return
+const activeTool = ref('brush')
+const tools = [
+  {
+    id: 'brush',
+    icon: 'i-ph-paint-brush',
+    onClick: () => props.painter.useTool('brush'),
+  },
+  {
+    id: 'eraser',
+    icon: 'i-ph-eraser',
+    onClick: () => props.painter.useTool('eraser'),
+  },
+  {
+    id: 'image',
+    icon: 'i-ph-image',
+    onClick: () => props.painter.useTool('image'),
+  },
+  {
+    id: 'selection',
+    icon: 'i-ph-selection',
+    onClick: () => props.painter.useTool('selection'),
+  },
+]
 
-    props.painter.loadImage(URL.createObjectURL(file))
-  }
-  input.click()
-}
+props.painter.emitter.on('tool:change', (tool) => {
+  activeTool.value = tool
+})
 </script>
 
 <template>
   <!-- eslint-disable vue/no-mutating-props -->
   <div rounded-lg bg="dark-100" flex="~ col" gap="1" p="1" text-white>
-    <PainterIconButton icon="i-ph-paint-brush" @click="painter.useBrush()" />
-    <PainterIconButton icon="i-ph-image" @click="importImage" />
-    <PainterIconButton icon="i-ph-selection" @click="painter.useSelection()" />
+    <PainterIconButton
+      v-for="tool in tools"
+      :key="tool.icon"
+      :icon="tool.icon"
+      :active="tool.id === activeTool"
+      @click="tool.onClick"
+    />
+
     <div my-1>
       <PainterColorPicker v-model="PainterBrush.color" />
     </div>

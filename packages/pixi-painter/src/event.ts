@@ -9,6 +9,14 @@ export function createEmitter() {
     'brush:enter': void
     'brush:up': void
     'brush:out': void
+
+    // eraser
+    'eraser:enter': void
+    'eraser:up': void
+    'eraser:out': void
+
+    // tool
+    'tool:change': string
   }>()
   return emitter
 }
