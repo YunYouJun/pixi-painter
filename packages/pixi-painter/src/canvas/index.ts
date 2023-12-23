@@ -47,20 +47,24 @@ export class PainterCanvas {
 
     // event
     const boardContainer = this.painter.board.container
-    document.addEventListener('wheel', (e) => {
+
+    this.painter.app.stage.on('wheel', (e) => {
       const scroll = Math.sign(e.deltaY) * Math.min(Math.abs(e.deltaY), 50)
       const scale = Math.max(boardContainer.scale.x * (1 + scroll / 500), this.minScale)
-      // canvasShape.scale.set(scale)
-      // canvasBg.scale.set(scale)
-      // todo fix scroll
-      // console.log(e)
-      // console.log(scale)
-      // console.log(e.global.x, e.global.y)
-      // console.log(e.getLocalPosition(this.container))
-      // boardContainer.pivot.set(e.offsetX, e.offsetY)
-      // console.log(boardContainer.position.x, boardContainer.position.y)
-      // boardContainer.position.set(e.offsetX, e.offsetY)
+
+      const offset = e.getLocalPosition(boardContainer)
+
       boardContainer.scale.set(scale)
+      boardContainer.position.set(
+        e.global.x - offset.x * scale,
+        e.global.y - offset.y * scale,
+      )
+
+      this.painter.boundingBoxes.scale.set(scale)
+      this.painter.boundingBoxes.position.set(
+        boardContainer.position.x,
+        boardContainer.position.y,
+      )
       // this.painter.brush.graphics.scale.set(scale)
     })
   }

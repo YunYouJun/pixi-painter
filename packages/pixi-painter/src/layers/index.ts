@@ -22,6 +22,8 @@ function getCursor(key: ControlPointPosition) {
       return 'ew-resize'
     case 'ROTATE':
       return 'crosshair'
+    case 'CENTER':
+      return 'move'
   }
 }
 
@@ -47,6 +49,8 @@ export class EditableLayer extends PIXI.Container {
     LEFT_CENTER: new PIXI.Sprite(PIXI.Texture.WHITE),
 
     ROTATE: new PIXI.Sprite(PIXI.Texture.WHITE),
+
+    CENTER: new PIXI.Sprite(PIXI.Texture.WHITE),
   }
 
   constructor(painter: Painter) {
@@ -72,13 +76,6 @@ export class EditableLayer extends PIXI.Container {
     this.boundingBoxContainer.addChild(this.boundingBox)
 
     this.app = app
-    // drag
-    createDrag({
-      painter,
-      layer: this,
-      app,
-      containers: [this, this.boundingBoxContainer],
-    })
 
     Object.entries(this.controlPoints).forEach(([key, sprite]) => {
       sprite.name = key
@@ -100,6 +97,15 @@ export class EditableLayer extends PIXI.Container {
           container: this,
         })
       }
+      else if (key === 'CENTER') {
+        createDrag({
+          handleSprite: sprite,
+          painter,
+          layer: this,
+          app,
+          containers: [this, this.boundingBoxContainer],
+        })
+      }
       else {
         createScaleHandle({
           layer: this,
@@ -118,6 +124,8 @@ export class EditableLayer extends PIXI.Container {
   }
 
   updateTransformBoundingBox() {
+    this.boundingBoxContainer.position.set(this.x, this.y)
+
     const bounds = this.getLocalBounds()
 
     bounds.x *= this.scale.x
@@ -147,6 +155,9 @@ export class EditableLayer extends PIXI.Container {
 
       // rotate
       ROTATE: [bounds.x + bounds.width / 2, bounds.y - 25], // top center
+
+      // center
+      CENTER: [bounds.x + bounds.width / 2, bounds.y + bounds.height / 2],
     } as const
 
     const controlPointSize = this.handleSize

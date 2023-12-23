@@ -4,7 +4,8 @@ import type { EditableLayer } from '.'
 export type ControlPointPosition =
   'TOP_LEFT' | 'TOP_RIGHT' | 'BOTTOM_RIGHT' | 'BOTTOM_LEFT' |
   'TOP_CENTER' | 'RIGHT_CENTER' | 'BOTTOM_CENTER' | 'LEFT_CENTER' |
-  'ROTATE'
+  'ROTATE' |
+  'CENTER'
 
 /**
  * add handle to scale

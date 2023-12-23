@@ -40,7 +40,7 @@ export class PainterBrush {
   /**
    * prepare circle texture, that will be our brush
    */
-  graphics = new PIXI.Graphics().beginFill(PainterBrush.color)
+  graphics: PIXI.Graphics = new PIXI.Graphics().beginFill(PainterBrush.color)
 
   dragging = false
   lastDrawnPoint: PIXI.Point | null = null
@@ -58,8 +58,6 @@ export class PainterBrush {
       .on('pointermove', this.pointerMove.bind(this))
       .on('pointerout', this.pointerOut.bind(this))
       .on('pointerenter', this.pointerEnter.bind(this))
-
-    this.graphics.name = 'brushGraphics'
   }
 
   painter: Painter

@@ -33,13 +33,37 @@ onMounted(async () => {
   // painter.value.background.color = 0xFFFFFF
 
   painter.value?.loadImage('https://pixijs.com/assets/flowerTop.png')
+
+  const tCanvas = targetCanvas.value
+  if (tCanvas) {
+    tCanvas.width = tCanvas.parentElement?.clientWidth || 0
+    tCanvas.height = tCanvas.parentElement?.clientHeight || 0
+  }
 })
+
+function onExtract(dataUrl: string) {
+  const img = new Image()
+
+  const tCanvas = targetCanvas.value
+  if (!tCanvas)
+    return
+
+  const ctx = tCanvas.getContext('2d')
+
+  img.src = dataUrl
+  img.onload = () => {
+    if (!ctx)
+      return
+
+    ctx.drawImage(img, 0, 0, tCanvas.width, tCanvas.height)
+  }
+}
 </script>
 
 <template>
   <div relative h-screen w-screen overflow="hidden">
     <template v-if="painter">
-      <PainterControls :painter="painter" class="absolute left-2 top-10" />
+      <PainterControls :painter="painter" class="absolute left-2 top-10" @extract="onExtract" />
       <PainterOptionsBar class="absolute left-2 top-2" />
     </template>
 
@@ -48,7 +72,7 @@ onMounted(async () => {
     </div>
 
     <div class="absolute bottom-0 right-0 h-80 w-80 rounded" bg-gray>
-      <canvas ref="targetCanvas" />
+      <canvas id="target-canvas" ref="targetCanvas" />
     </div>
   </div>
 </template>

@@ -64,6 +64,7 @@ export class Painter {
    * canvas is board's child
    */
   board: PainterBoard
+  boundingBoxes = new PIXI.Container()
   /**
    * not HTMLCanvasElement
    * workspace canvas
@@ -101,7 +102,7 @@ export class Painter {
       resolution,
 
       // for toBlob
-      preserveDrawingBuffer: true,
+      // preserveDrawingBuffer: true,
     })
     const stage = this.app.stage
     stage.eventMode = 'static'
@@ -137,6 +138,13 @@ export class Painter {
     this.app.stage.name = 'stage'
     this.app.stage.addChild(this.board.container)
 
+    // boxes
+    const { app } = this
+    this.boundingBoxes.name = 'boundingBoxes'
+    this.boundingBoxes.x = app.view.width / app.renderer.resolution / 2
+    this.boundingBoxes.y = app.view.height / app.renderer.resolution / 2
+    this.app.stage.addChild(this.boundingBoxes)
+
     options.view.addEventListener('contextmenu', (e) => {
       e.preventDefault()
       // console.log(e)
@@ -156,14 +164,15 @@ export class Painter {
 
   async loadImage(src: string) {
     const imgSprite = await importImageSprite(src)
-    const { board, canvas } = this
+    const { canvas } = this
     const layer = new EditableLayer(this)
     layer.eventMode = 'static'
     canvas.container.addChild(layer)
     layer.addChild(imgSprite)
     layer.updateTransform()
     layer.updateTransformBoundingBox()
-    board.container.addChild(layer.boundingBoxContainer)
+
+    this.boundingBoxes.addChild(layer.boundingBoxContainer)
 
     this.history.record({
       undo: () => {
@@ -246,6 +255,21 @@ export class Painter {
       this.loadImage(URL.createObjectURL(file))
     }
     input.click()
+  }
+
+  async extractCanvas(type: 'image' | 'base64' | 'canvas' | 'pixels' = 'image') {
+    const { app } = this
+    const target = this.board.container
+    if (type === 'image')
+      return app.renderer.extract.image(target)
+    else if (type === 'base64')
+      return app.renderer.extract.base64(target)
+    else if (type === 'canvas')
+      return app.renderer.extract.canvas(target)
+    else if (type === 'pixels')
+      return app.renderer.extract.pixels(target)
+    else
+      throw new Error(`unknown type: ${type}`)
   }
 }
 

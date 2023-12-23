@@ -12,7 +12,7 @@ export function createBoardDrag(board: PainterBoard) {
 
   const app = board.painter.app
   const area = app.stage
-  const containers = [board.container]
+  const containers = [board.container, board.painter.boundingBoxes]
   const keyCode = 'Space'
 
   function onDragStart() {

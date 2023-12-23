@@ -5,6 +5,7 @@ import { createBoardDrag } from './drag'
 export class PainterBoard {
   painter: Painter
   container = new PIXI.Container()
+  minScale = 0.3
 
   constructor(painter: Painter) {
     this.painter = painter

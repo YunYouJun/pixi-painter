@@ -7,6 +7,8 @@ const props = defineProps<{
   painter: Painter
 }>()
 
+const emit = defineEmits(['extract'])
+
 const backgroundColor = ref<string | number>(Number(props.painter.background.color) || 0xFFFFFF)
 function onBackgroundColorChange(color: number) {
   const background = props.painter.background
@@ -35,6 +37,24 @@ const tools = [
     id: 'selection',
     icon: 'i-ph-selection',
     onClick: () => props.painter.useTool('selection'),
+  },
+  {
+    id: 'download',
+    icon: 'i-ph-download',
+    onClick: async () => {
+      const dataUrl = await props.painter.extractCanvas('base64')
+      emit('extract', dataUrl)
+    },
+  },
+  {
+    id: 'undo',
+    icon: 'i-ph-arrow-arc-left',
+    onClick: () => props.painter.history.undo(),
+  },
+  {
+    id: 'redo',
+    icon: 'i-ph-arrow-arc-right',
+    onClick: () => props.painter.history.redo(),
   },
 ]
 

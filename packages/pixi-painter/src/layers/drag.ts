@@ -7,11 +7,13 @@ import type { EditableLayer } from '.'
  * keyCode press key code to drag
  */
 export function createDrag({
+  handleSprite,
   painter,
   layer,
   app,
   containers,
 }: {
+  handleSprite: PIXI.Sprite
   painter: Painter
   layer: EditableLayer
   app: PIXI.Application
@@ -30,12 +32,18 @@ export function createDrag({
   let offset = new PIXI.Point()
 
   function onDragStart(e: PIXI.FederatedPointerEvent) {
+    e.stopPropagation()
+
     if (!canDrag())
       return
 
     offset = e.global.subtract(layer.getGlobalPosition())
     dragTargets = containers
     area.on('pointermove', onDragMove)
+
+    dragTargets.forEach((dragTarget) => {
+      dragTarget.parent.setChildIndex(dragTarget, dragTarget.parent.children.length - 1)
+    })
   }
 
   function setCursorStyle(style: PIXI.ICanvasStyle['cursor']) {
@@ -68,9 +76,10 @@ export function createDrag({
     }
   }
 
-  // layer.on('pointerdown', onDragStart, layer)
+  layer.on('pointerdown', onDragStart, layer)
+  handleSprite.on('pointerdown', onDragStart, layer)
   // 超出画布边界也可以拖动
-  area.on('pointerdown', onDragStart)
+  // area.on('pointerdown', onDragStart)
   area.on('pointerup', onDragEnd)
   area.on('pointerupoutside', onDragEnd)
 
