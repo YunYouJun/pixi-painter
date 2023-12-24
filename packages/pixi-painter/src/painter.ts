@@ -108,6 +108,11 @@ export class Painter {
     stage.eventMode = 'static'
     stage.hitArea = this.app.screen
 
+    // resize
+    window.addEventListener('resize', () => {
+      this.app.renderer.resize(window.innerWidth, window.innerHeight)
+    })
+
     // add image drop
     addImageDropListener(this, options.view)
 
@@ -124,12 +129,9 @@ export class Painter {
     this.canvas = createCanvas(this)
     this.brush = createBrush(this)
     this.eraser = createEraser(this)
-    // add mask for brush
-    this.brush.graphics.mask = this.canvas.shape
 
     // mount containers
     // add canvas to stage to draw
-    this.canvas.container.addChild(this.brush.graphics)
     boardContainer.addChild(this.canvas.container)
 
     // ...
@@ -150,7 +152,9 @@ export class Painter {
       // console.log(e)
     })
 
-    this.useTool('brush')
+    setTimeout(() => {
+      this.useTool('brush')
+    }, 1)
   }
 
   /**
@@ -164,9 +168,12 @@ export class Painter {
 
   async loadImage(src: string) {
     const imgSprite = await importImageSprite(src)
+    imgSprite.name = src
+
     const { canvas } = this
     const layer = new EditableLayer(this)
     layer.eventMode = 'static'
+    layer.name = `Image ${EditableLayer.order++}`
     canvas.container.addChild(layer)
     layer.addChild(imgSprite)
     layer.updateTransform()
@@ -187,17 +194,11 @@ export class Painter {
   }
 
   showBoundingBox() {
-    this.board.container.children.forEach((child) => {
-      if (child.name === 'boundingBoxContainer')
-        child.visible = true
-    })
+    this.boundingBoxes.visible = true
   }
 
   hideBoundingBox() {
-    this.board.container.children.forEach((child) => {
-      if (child.name === 'boundingBoxContainer')
-        child.visible = false
-    })
+    this.boundingBoxes.visible = false
   }
 
   useTool(name: PainterTool) {
@@ -206,6 +207,7 @@ export class Painter {
 
     PainterBrush.enabled = false
     PainterEraser.enabled = false
+    this.hideBoundingBox()
 
     switch (name) {
       case 'brush':
@@ -227,12 +229,10 @@ export class Painter {
 
   useBrush() {
     PainterBrush.enabled = true
-    this.hideBoundingBox()
   }
 
   useEraser() {
     PainterEraser.enabled = true
-    this.hideBoundingBox()
   }
 
   useSelection() {

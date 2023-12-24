@@ -1,9 +1,14 @@
 import mitt from 'mitt'
+import type { EditableLayer } from './layers'
+import type { PainterAction } from './features/history'
 
 export function createEmitter() {
   const emitter = mitt<{
     // board
     'board:drag': void
+
+    // layer
+    'layer:add': EditableLayer
 
     // brush
     'brush:enter': void
@@ -17,6 +22,9 @@ export function createEmitter() {
 
     // tool
     'tool:change': string
+
+    // history
+    'history:record': PainterAction
   }>()
   return emitter
 }

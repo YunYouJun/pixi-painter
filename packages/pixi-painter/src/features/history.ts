@@ -33,6 +33,8 @@ export class PainterHistory {
       this.undoStack.splice(this.capacity, Number.POSITIVE_INFINITY)
     if (this.redoStack.length)
       this.redoStack.splice(0, this.redoStack.length)
+
+    this.painter.emitter.emit('history:record', action)
   }
 
   clear() {

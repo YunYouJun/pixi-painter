@@ -26,16 +26,16 @@ export function createDrag({
   const isSpacePressed = () => painter.keyboard.isPressed('Space')
   // 按下空格或者没有显示边框 不可拖动
   const canDrag = () => {
-    return !isSpacePressed() && layer.boundingBoxContainer.visible
+    return !isSpacePressed() && layer.boundingBoxContainer.parent.visible
   }
 
   let offset = new PIXI.Point()
 
   function onDragStart(e: PIXI.FederatedPointerEvent) {
-    e.stopPropagation()
-
     if (!canDrag())
       return
+
+    e.stopPropagation()
 
     offset = e.global.subtract(layer.getGlobalPosition())
     dragTargets = containers

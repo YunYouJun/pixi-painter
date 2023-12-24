@@ -39,11 +39,23 @@ const tools = [
     onClick: () => props.painter.useTool('selection'),
   },
   {
+    id: 'extract',
+    icon: 'i-ph-export',
+    onClick: async () => {
+      const dataUrl = await props.painter.extractCanvas('base64')
+      emit('extract', dataUrl)
+    },
+  },
+  {
     id: 'download',
     icon: 'i-ph-download',
     onClick: async () => {
       const dataUrl = await props.painter.extractCanvas('base64')
-      emit('extract', dataUrl)
+
+      const a = document.createElement('a')
+      a.href = dataUrl as string
+      a.download = 'pixi-painter-img.png'
+      a.click()
     },
   },
   {

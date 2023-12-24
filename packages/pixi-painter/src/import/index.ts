@@ -13,6 +13,7 @@ export async function importImageSprite(src: string) {
       const sprite = new PIXI.Sprite(texture)
       sprite.anchor.set(0.5)
       sprite.eventMode = 'static'
+      sprite.accessibleType = 'Image Sprite'
       resolve(sprite)
     }
     img.src = src

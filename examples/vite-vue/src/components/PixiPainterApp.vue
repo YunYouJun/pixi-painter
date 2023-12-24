@@ -1,6 +1,8 @@
 <script lang="ts" setup>
 import { shallowRef } from 'vue'
 
+import type * as PIXI from 'pixi.js'
+
 import type { Painter } from 'pixi-painter'
 import { createPainter } from 'pixi-painter'
 
@@ -14,6 +16,7 @@ const painter = shallowRef<Painter>()
 // const targetCanvas = ref<HTMLCanvasElement>()
 // const inputPrompt = useStorage('pp:prompt', '椅子， 杰作, 最好质量，')
 
+const data = ref<Tree[]>([])
 onMounted(async () => {
   if (!srcCanvas.value)
     return
@@ -39,6 +42,12 @@ onMounted(async () => {
     tCanvas.width = tCanvas.parentElement?.clientWidth || 0
     tCanvas.height = tCanvas.parentElement?.clientHeight || 0
   }
+
+  const canvasContainer = painter.value?.canvas.container
+  data.value = getLayersData(canvasContainer)
+  painter.value.emitter.on('history:record', () => {
+    data.value = getLayersData(canvasContainer)
+  })
 })
 
 function onExtract(dataUrl: string) {
@@ -58,6 +67,34 @@ function onExtract(dataUrl: string) {
     ctx.drawImage(img, 0, 0, tCanvas.width, tCanvas.height)
   }
 }
+
+interface Tree {
+  name: string
+  visible: boolean
+  children: Tree[]
+}
+
+function getLayersData(container: PIXI.Container) {
+  const layers = container.children
+  const layersData: Tree[] = []
+
+  for (let i = 0; i < layers.length; i++) {
+    const layer = layers[i]
+    // const layerData: Tree = {
+    //   name: layer.name || `Layer ${depth} - ${i}`,
+    //   visible: layer.visible,
+    //   children: [],
+    // }
+    const layerData = layer as any as Tree
+
+    // if (layer instanceof PIXI.Container && layer.children.length > 0)
+    // layerData.children = getLayersData(layer, depth + 1)
+
+    layersData.push(layerData)
+  }
+
+  return layersData
+}
 </script>
 
 <template>
@@ -66,6 +103,10 @@ function onExtract(dataUrl: string) {
       <PainterControls :painter="painter" class="absolute left-2 top-10" @extract="onExtract" />
       <PainterOptionsBar class="absolute left-2 top-2" />
     </template>
+
+    <div class="absolute right-2 top-2 w-80 text-left">
+      <BTree :data="data" @node-hide="onNodeHide" />
+    </div>
 
     <div h-full w-full text-center shadow>
       <canvas ref="srcCanvas" class="m-auto h-full w-full rounded" />
@@ -76,3 +117,13 @@ function onExtract(dataUrl: string) {
     </div>
   </div>
 </template>
+
+<style lang="scss">
+.b-tree-node {
+  .content {
+    &.invisible {
+      visibility: visible;
+    }
+  }
+}
+</style>

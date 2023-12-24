@@ -16,7 +16,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "devDependencies": {
-    "@advjs/blender-ui": "0.0.2-beta.3",
+    "@advjs/blender-ui": "0.0.2-beta.5",
     "@iconify-json/carbon": "^1.1.27",
     "@iconify-json/ph": "^1.1.9",
     "@iconify-json/ri": "^1.1.18",
@@ -36,6 +36,6 @@
     "sass": "^1.69.5",
     "vue": "^3.3.13",
     "vue-router": "^4.2.5",
-    "vue-tsc": "^1.8.25"
+    "vue-tsc": "^1.8.26"
   }
 }

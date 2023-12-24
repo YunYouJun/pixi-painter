@@ -1,6 +1,8 @@
 import type { Painter } from '../painter'
 
 export class Keyboard {
+  platform: 'macos' | 'windows'
+
   painter: Painter
   // code 物理键盘 一致
   keyState = new Map<KeyboardEvent['code'], boolean>()
@@ -10,6 +12,8 @@ export class Keyboard {
 
     window.addEventListener('keydown', this.keydown.bind(this))
     window.addEventListener('keyup', this.keyup.bind(this))
+
+    this.platform = navigator.userAgent.includes('Windows') ? 'windows' : 'macos'
   }
 
   // initShortcuts() { }
@@ -21,6 +25,7 @@ export class Keyboard {
   keydown(e: KeyboardEvent) {
     this.keyState.set(e.code, true)
 
+    let commonKey = false
     switch (e.code) {
       // case 'ArrowLeft':
       //   this.painter.moveSelection(-1, 0)
@@ -56,9 +61,13 @@ export class Keyboard {
       case 'KeyZ':
         // macos: Command + Z
         // windows: Ctrl + Z
-        if (e.shiftKey && e.metaKey)
+        commonKey = (this.platform === 'macos')
+          ? e.metaKey
+          : e.ctrlKey
+
+        if (e.shiftKey && commonKey)
           this.painter.history.redo()
-        else if (e.metaKey)
+        else if (commonKey)
           this.painter.history.undo()
         break
       case 'Slash':

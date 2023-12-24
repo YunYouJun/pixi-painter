@@ -30,6 +30,11 @@ function getCursor(key: ControlPointPosition) {
 }
 
 export class EditableLayer extends PIXI.Container {
+  /**
+   * index
+   */
+  static order = 0
+
   painter: Painter
   app: PIXI.Application
   /**
@@ -189,6 +194,9 @@ export class EditableLayer extends PIXI.Container {
       }
       document.addEventListener('click', removeMenu)
     })
+
+    // add layer event
+    this.painter.emitter.emit('layer:add', this)
   }
 
   updateTransformBoundingBox() {
