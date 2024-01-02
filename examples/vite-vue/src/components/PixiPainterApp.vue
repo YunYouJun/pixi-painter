@@ -6,6 +6,8 @@ import type * as PIXI from 'pixi.js'
 import type { Painter } from 'pixi-painter'
 import { createPainter } from 'pixi-painter'
 
+import { postImage } from '../api/index'
+
 // import { useStorage } from '@vueuse/core'
 
 const srcCanvas = ref<HTMLCanvasElement>()
@@ -45,8 +47,22 @@ onMounted(async () => {
 
   const canvasContainer = painter.value?.canvas.container
   data.value = getLayersData(canvasContainer)
-  painter.value.emitter.on('history:record', () => {
+  painter.value.emitter.on('history:record', async () => {
     data.value = getLayersData(canvasContainer)
+
+    // todo
+
+    const extractedData = await painter.value?.extractCanvas('canvas') as HTMLCanvasElement
+    extractedData.toBlob(async (blob) => {
+      if (!blob)
+        return
+
+      const res = await postImage({
+        prompt: '椅子， 杰作, 最好质量，',
+        image: blob,
+      })
+      onExtract(URL.createObjectURL(res.data))
+    })
   })
 })
 
@@ -58,14 +74,14 @@ function onExtract(dataUrl: string) {
     return
 
   const ctx = tCanvas.getContext('2d')
-
-  img.src = dataUrl
   img.onload = () => {
     if (!ctx)
       return
 
     ctx.drawImage(img, 0, 0, tCanvas.width, tCanvas.height)
   }
+  img.crossOrigin = 'anonymous'
+  img.src = dataUrl
 }
 
 interface Tree {
@@ -105,7 +121,7 @@ function getLayersData(container: PIXI.Container) {
     </template>
 
     <div class="absolute right-2 top-2 w-80 text-left">
-      <BTree :data="data" @node-hide="onNodeHide" />
+      <BTree :data="data" />
     </div>
 
     <div h-full w-full text-center shadow>

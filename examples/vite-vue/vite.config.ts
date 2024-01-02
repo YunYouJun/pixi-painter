@@ -11,6 +11,16 @@ const componentsDir = '../../node_modules/@advjs/blender-ui/client/components'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://kulsisme--stable-diffusion-xl-turbo-fastapi-app.modal.run/',
+        changeOrigin: true,
+        rewrite: path => path.replace(/^\/api/, ''),
+      },
+    },
+  },
+
   resolve: {
     alias: {
       'pixi-painter': path.resolve(__dirname, '../../packages/pixi-painter/src'),
