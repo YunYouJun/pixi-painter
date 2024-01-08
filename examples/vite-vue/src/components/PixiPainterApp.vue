@@ -121,7 +121,7 @@ function getLayersData(container: PIXI.Container) {
     </template>
 
     <div class="absolute right-2 top-2 w-80 text-left">
-      <BTree :data="data" />
+      <AGUITree :data="data" />
     </div>
 
     <div h-full w-full text-center shadow>

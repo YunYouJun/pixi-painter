@@ -19,7 +19,7 @@ export class PainterEraser {
    * Enable eraser
    */
   static enabled = true
-  static color: number = 0xFF0000
+  static color: number = 0xFFFFFF
 
   /**
    * The radius of the brush.
@@ -87,7 +87,8 @@ export class PainterEraser {
     PainterEraser.graphicsPool.push(this.graphics)
     this.graphics.name = `eraserGraphics ${PainterEraser.index++}`
     // this.painter.canvas.container.addChild(this.graphics)
-    this.graphics.blendMode = PIXI.BLEND_MODES.ERASE
+    // TODO: Real eraser
+    // this.graphics.blendMode = PIXI.BLEND_MODES.ERASE
 
     this.painter.canvas.container.addChild(this.graphics)
 

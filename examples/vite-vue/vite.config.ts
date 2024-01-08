@@ -6,8 +6,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import Unocss from 'unocss/vite'
 
-// import { componentsDir } from '@advjs/blender-ui/index'
-const componentsDir = '../../node_modules/@advjs/blender-ui/client/components'
+import { componentsDir } from '@advjs/gui/node'
 
 // https://vitejs.dev/config/
 export default defineConfig({

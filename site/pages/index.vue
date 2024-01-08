@@ -2,8 +2,6 @@
 import type { Painter } from 'pixi-painter'
 import { createPainter } from 'pixi-painter'
 
-import '@advjs/blender-ui/client/styles/css-vars.scss'
-
 // const online = useOnline()
 
 const srcCanvas = ref<HTMLCanvasElement>()

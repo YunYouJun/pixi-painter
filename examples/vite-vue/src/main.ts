@@ -5,6 +5,7 @@ import '@unocss/reset/tailwind.css'
 import './styles/main.css'
 import 'uno.css'
 
-import '@advjs/blender-ui/client/styles/index.scss'
+import '@advjs/gui/client/styles/index.scss'
+import '@advjs/gui/client/styles/css-vars.scss'
 
 createApp(App).mount('#app')

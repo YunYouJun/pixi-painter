@@ -13,7 +13,7 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@vite-pwa/nuxt',
 
-    '@advjs/blender-ui/nuxt',
+    '@advjs/gui/nuxt',
   ],
 
   css: ['@unocss/reset/tailwind.css'],

@@ -3,7 +3,6 @@ import { onMounted, ref } from 'vue'
 import type { Painter } from 'pixi-painter'
 import { createPainter } from 'pixi-painter'
 
-import '@advjs/blender-ui/client/styles/css-vars.scss'
 import consola from 'consola'
 import axios from 'axios'
 
