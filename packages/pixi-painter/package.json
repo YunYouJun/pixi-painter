@@ -1,7 +1,7 @@
 {
   "name": "pixi-painter",
   "type": "module",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "color": "#F70A8D",
   "emoji": "🎨",
   "repository": {
@@ -12,7 +12,7 @@
     "build": "unbuild",
     "dev": "unbuild --stub",
     "prepublishOnly": "npm run build",
-    "release": "pnpm publish"
+    "release": "bumpp && npm publish"
   },
   "dependencies": {
     "@ctrl/tinycolor": "^4.0.2",
