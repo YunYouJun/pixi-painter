@@ -1,13 +1,27 @@
 {
   "name": "pixi-painter",
   "type": "module",
-  "version": "0.0.4",
+  "version": "0.0.5-beta.0",
   "color": "#F70A8D",
   "emoji": "🎨",
+  "author": {
+    "name": "YunYouJun",
+    "email": "me@yunyoujun.cn"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/YunYouJun/pixi-painter"
   },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.mjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "unbuild",
     "dev": "unbuild --stub",
