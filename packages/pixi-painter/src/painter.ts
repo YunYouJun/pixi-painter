@@ -271,6 +271,10 @@ export class Painter {
     else
       throw new Error(`unknown type: ${type}`)
   }
+
+  destroy() {
+    this.app.destroy()
+  }
 }
 
 export function createPainter(options: PainterOptions): Painter {

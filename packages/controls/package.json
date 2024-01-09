@@ -1,7 +1,7 @@
 {
   "name": "@pixi-painter/controls",
   "dependencies": {
-    "@advjs/gui": "^0.0.2"
+    "@advjs/gui": "^0.0.3-beta.4"
   },
   "devDependencies": {
     "@iconify-json/ph": "^1.1.9"

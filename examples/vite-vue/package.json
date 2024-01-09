@@ -9,10 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "vue": "^3.4.6"
+    "vue": "^3.4.7"
   },
   "devDependencies": {
-    "@advjs/gui": "^0.0.2",
+    "@advjs/gui": "^0.0.3-beta.4",
     "@vitejs/plugin-vue": "^5.0.2",
     "typescript": "^5.3.3",
     "unocss": "^0.58.3",
