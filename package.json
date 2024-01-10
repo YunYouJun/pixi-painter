@@ -19,7 +19,7 @@
     "build:lib": "pnpm -C packages/pixi-painter run build",
     "build:site": "pnpm -C site run build",
     "generate:site": "pnpm -C site run generate",
-    "dev": "pnpm -C examples/vite-vue run dev",
+    "dev": "pnpm -C examples/vue run dev",
     "dev:site": "pnpm -C site run dev",
     "lint": "eslint .",
     "test": "vitest",
