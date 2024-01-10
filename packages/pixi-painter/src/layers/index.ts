@@ -1,4 +1,5 @@
-import * as PIXI from 'pixi.js'
+import { Container, Graphics, Sprite, Texture } from 'pixi.js'
+import type * as PIXI from 'pixi.js'
 import { PainterBrush } from '../brush'
 import type { Painter } from '../painter'
 import { createDrag } from './drag'
@@ -29,7 +30,7 @@ function getCursor(key: ControlPointPosition) {
   }
 }
 
-export class EditableLayer extends PIXI.Container {
+export class EditableLayer extends Container {
   /**
    * index
    */
@@ -40,27 +41,27 @@ export class EditableLayer extends PIXI.Container {
   /**
    * editor box container
    */
-  boundingBoxContainer = new PIXI.Container()
-  boundingBox = new PIXI.Graphics()
+  boundingBoxContainer = new Container()
+  boundingBox = new Graphics()
 
   handleSize = 12
 
-  lastParent: PIXI.Container | null = null
+  lastParent: Container | null = null
 
-  controlPoints: Record<ControlPointPosition, PIXI.Sprite> = {
-    TOP_LEFT: new PIXI.Sprite(PIXI.Texture.WHITE),
-    TOP_RIGHT: new PIXI.Sprite(PIXI.Texture.WHITE),
-    BOTTOM_RIGHT: new PIXI.Sprite(PIXI.Texture.WHITE),
-    BOTTOM_LEFT: new PIXI.Sprite(PIXI.Texture.WHITE),
+  controlPoints: Record<ControlPointPosition, Sprite> = {
+    TOP_LEFT: new Sprite(Texture.WHITE),
+    TOP_RIGHT: new Sprite(Texture.WHITE),
+    BOTTOM_RIGHT: new Sprite(Texture.WHITE),
+    BOTTOM_LEFT: new Sprite(Texture.WHITE),
 
-    TOP_CENTER: new PIXI.Sprite(PIXI.Texture.WHITE),
-    RIGHT_CENTER: new PIXI.Sprite(PIXI.Texture.WHITE),
-    BOTTOM_CENTER: new PIXI.Sprite(PIXI.Texture.WHITE),
-    LEFT_CENTER: new PIXI.Sprite(PIXI.Texture.WHITE),
+    TOP_CENTER: new Sprite(Texture.WHITE),
+    RIGHT_CENTER: new Sprite(Texture.WHITE),
+    BOTTOM_CENTER: new Sprite(Texture.WHITE),
+    LEFT_CENTER: new Sprite(Texture.WHITE),
 
-    ROTATE: new PIXI.Sprite(PIXI.Texture.WHITE),
+    ROTATE: new Sprite(Texture.WHITE),
 
-    CENTER: new PIXI.Sprite(PIXI.Texture.WHITE),
+    CENTER: new Sprite(Texture.WHITE),
   }
 
   constructor(painter: Painter) {

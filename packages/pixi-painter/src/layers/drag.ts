@@ -1,4 +1,5 @@
-import * as PIXI from 'pixi.js'
+import { Point } from 'pixi.js'
+import type * as PIXI from 'pixi.js'
 import type { Painter } from '../painter'
 import type { EditableLayer } from '.'
 
@@ -29,7 +30,7 @@ export function createDrag({
     return !isSpacePressed() && layer.boundingBoxContainer.parent.visible
   }
 
-  let offset = new PIXI.Point()
+  let offset = new Point()
 
   function onDragStart(e: PIXI.FederatedPointerEvent) {
     if (!canDrag())

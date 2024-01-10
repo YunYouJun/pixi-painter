@@ -1,10 +1,10 @@
-import * as PIXI from 'pixi.js'
+import { Container } from 'pixi.js'
 import type { Painter } from '../index'
 import { createBoardDrag } from './drag'
 
 export class PainterBoard {
   painter: Painter
-  container = new PIXI.Container()
+  container = new Container()
   minScale = 0.3
 
   constructor(painter: Painter) {

@@ -1,8 +1,9 @@
-import * as PIXI from 'pixi.js'
+import { Graphics, Point, RenderTexture } from 'pixi.js'
+import type * as PIXI from 'pixi.js'
 import type { Painter } from '../painter'
 
 export interface BrushOptions {
-  renderTexture?: PIXI.RenderTexture
+  renderTexture?: RenderTexture
   /**
    * The radius of the brush.
    */
@@ -10,7 +11,7 @@ export interface BrushOptions {
 }
 
 export const defaultBrushOptions = {
-  renderTexture: PIXI.RenderTexture.create({ width: 1, height: 1 }),
+  renderTexture: RenderTexture.create({ width: 1, height: 1 }),
 }
 
 export class PainterBrush {
@@ -77,7 +78,7 @@ export class PainterBrush {
       return
 
     // new draw
-    this.graphics = new PIXI.Graphics().beginFill(PainterBrush.color)
+    this.graphics = new Graphics().beginFill(PainterBrush.color)
     this.graphics.name = `brushGraphics ${PainterBrush.index++}`
     this.painter.canvas.container.addChild(this.graphics)
 
@@ -125,7 +126,7 @@ export class PainterBrush {
         //   skipUpdateTransform: false,
         // })
       }
-      this.lastDrawnPoint = this.lastDrawnPoint || new PIXI.Point()
+      this.lastDrawnPoint = this.lastDrawnPoint || new Point()
       this.lastDrawnPoint.set(localPos.x, localPos.y)
     }
   }

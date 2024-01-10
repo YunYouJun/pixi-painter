@@ -1,4 +1,4 @@
-import * as PIXI from 'pixi.js'
+import { Application, Container } from 'pixi.js'
 import { PainterBrush, createBrush } from './brush'
 import { statement } from './statement'
 import { createEmitter } from './event'
@@ -55,7 +55,7 @@ export class Painter {
   tool = 'brush'
 
   options: PainterOptions
-  app: PIXI.Application
+  app: Application
   emitter = createEmitter()
   keyboard = new Keyboard(this)
 
@@ -64,7 +64,7 @@ export class Painter {
    * canvas is board's child
    */
   board: PainterBoard
-  boundingBoxes = new PIXI.Container()
+  boundingBoxes = new Container()
   /**
    * not HTMLCanvasElement
    * workspace canvas
@@ -80,7 +80,7 @@ export class Painter {
   /**
    * context menu
    */
-  contextMenu = new PIXI.Container()
+  contextMenu = new Container()
 
   constructor(options: PainterOptions) {
     this.options = options
@@ -90,7 +90,7 @@ export class Painter {
       resolution = window.devicePixelRatio || 1,
     } = options
 
-    this.app = new PIXI.Application({
+    this.app = new Application({
       view: options.view,
       // resizeTo: window,
       // backgroundColor: 0xFFFFFF,

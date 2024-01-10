@@ -1,4 +1,5 @@
-import * as PIXI from 'pixi.js'
+import { Point } from 'pixi.js'
+import type * as PIXI from 'pixi.js'
 import type { EditableLayer } from '.'
 
 export type ControlPointPosition =
@@ -29,7 +30,7 @@ export function createScaleHandle({
   let startHeight = container.height
   let aspectRatio = startWidth / startHeight
 
-  const startDragPos: PIXI.Point = new PIXI.Point()
+  const startDragPos: Point = new Point()
 
   let isDragging = false
 

@@ -1,15 +1,15 @@
-import * as PIXI from 'pixi.js'
+import { Container, Graphics } from 'pixi.js'
 import type { Painter } from '../painter'
 
 export class PainterCanvas {
-  container = new PIXI.Container()
+  container = new Container()
   painter: Painter
 
   /**
    * The background of the canvas.
    */
-  background: PIXI.Graphics
-  shape: PIXI.Graphics
+  background: Graphics
+  shape: Graphics
 
   minScale = 0.3
 
@@ -24,7 +24,7 @@ export class PainterCanvas {
     } } = options
 
     // mask shape
-    const canvasShape = new PIXI.Graphics()
+    const canvasShape = new Graphics()
     canvasShape.name = 'canvasShape'
     canvasShape.position.set(this.container.x, this.container.y)
     canvasShape.beginFill(0xFFFFFF)
