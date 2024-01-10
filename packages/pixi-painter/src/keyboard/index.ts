@@ -54,6 +54,9 @@ export class Keyboard {
       case 'KeyS':
         this.painter.useTool('selection')
         break
+      case 'KeyH':
+        this.painter.board.resetToCenter()
+        break
       case 'KeyI':
         // import image
         this.painter.useTool('image')

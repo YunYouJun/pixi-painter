@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@iconify-json/carbon": "^1.1.27",
-    "@iconify-json/ph": "^1.1.9",
+    "@iconify-json/ph": "^1.1.10",
     "@iconify-json/ri": "^1.1.18",
     "@iconify-json/twemoji": "^1.1.15",
     "@nuxt/devtools": "latest",

@@ -1,17 +1,13 @@
-import { Graphics, Point, RenderTexture } from 'pixi.js'
+import { Graphics, Point } from 'pixi.js'
 import type * as PIXI from 'pixi.js'
 import type { Painter } from '../painter'
 
 export interface BrushOptions {
-  renderTexture?: RenderTexture
+  renderTexture?: PIXI.RenderTexture
   /**
    * The radius of the brush.
    */
   radius?: number
-}
-
-export const defaultBrushOptions = {
-  renderTexture: RenderTexture.create({ width: 1, height: 1 }),
 }
 
 export class PainterEraser {
@@ -198,6 +194,6 @@ export class PainterEraser {
   }
 }
 
-export function createEraser(painter: Painter, _options: BrushOptions = defaultBrushOptions) {
+export function createEraser(painter: Painter) {
   return new PainterEraser(painter)
 }

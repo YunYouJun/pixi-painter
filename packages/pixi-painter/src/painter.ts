@@ -1,4 +1,5 @@
 import { Application, Container } from 'pixi.js'
+import type * as PIXI from 'pixi.js'
 import { PainterBrush, createBrush } from './brush'
 import { statement } from './statement'
 import { createEmitter } from './event'
@@ -41,6 +42,11 @@ export interface PainterOptions {
   view: HTMLCanvasElement
   // ...
   resolution?: number
+
+  /**
+   * override PIXI.Application options
+   */
+  pixiOptions?: Partial<PIXI.IApplicationOptions>
 }
 
 export interface PainterStore {}
@@ -88,6 +94,8 @@ export class Painter {
       size: { width, height } = { width: 768, height: 768 },
       debug = false,
       resolution = window.devicePixelRatio || 1,
+
+      pixiOptions = {},
     } = options
 
     this.app = new Application({
@@ -103,6 +111,8 @@ export class Painter {
 
       // for toBlob
       // preserveDrawingBuffer: true,
+
+      ...pixiOptions,
     })
     const stage = this.app.stage
     stage.eventMode = 'static'
@@ -151,7 +161,12 @@ export class Painter {
       e.preventDefault()
       // console.log(e)
     })
+  }
 
+  /**
+   * init
+   */
+  async init() {
     setTimeout(() => {
       this.useTool('brush')
     }, 1)
@@ -273,7 +288,15 @@ export class Painter {
   }
 
   destroy() {
-    this.app.destroy()
+    this.brush.destroy()
+    this.eraser.destroy()
+    this.board.destroy()
+
+    this.app.destroy(false, {
+      children: true,
+      texture: true,
+      baseTexture: true,
+    })
   }
 }
 

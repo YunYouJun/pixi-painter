@@ -25,7 +25,7 @@ onMounted(() => {
   // targetCanvas.value.height = tParent?.clientHeight || 0
 
   const painter = createPainter({
-    canvas: srcCanvas.value,
+    view: srcCanvas.value,
   })
   consola.log(painter)
 

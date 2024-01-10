@@ -1,17 +1,13 @@
-import { Graphics, Point, RenderTexture } from 'pixi.js'
+import { Graphics, Point } from 'pixi.js'
 import type * as PIXI from 'pixi.js'
 import type { Painter } from '../painter'
 
 export interface BrushOptions {
-  renderTexture?: RenderTexture
+  renderTexture?: PIXI.RenderTexture
   /**
    * The radius of the brush.
    */
   radius?: number
-}
-
-export const defaultBrushOptions = {
-  renderTexture: RenderTexture.create({ width: 1, height: 1 }),
 }
 
 export class PainterBrush {
@@ -206,6 +202,6 @@ export class PainterBrush {
   }
 }
 
-export function createBrush(painter: Painter, _options: BrushOptions = defaultBrushOptions) {
+export function createBrush(painter: Painter) {
   return new PainterBrush(painter)
 }

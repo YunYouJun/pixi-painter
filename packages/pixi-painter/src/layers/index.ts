@@ -274,6 +274,7 @@ export class EditableLayer extends Container {
   destroy(options?: boolean | PIXI.IDestroyOptions | undefined): void {
     super.destroy(options)
 
+    // destroy bounding box and all children
     this.boundingBoxContainer.destroy()
   }
 }

@@ -7,7 +7,7 @@
 
 .logo {
   height: 3em;
-  padding: 1.5em;
+  padding: 1.2em;
   will-change: filter;
   transition: filter 300ms;
 }
@@ -28,7 +28,11 @@
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
+  .logo.pixi-painter {
+    animation: logo-spin infinite 20s linear reverse;
+  }
+
+  .logo.react {
     animation: logo-spin infinite 20s linear;
   }
 }

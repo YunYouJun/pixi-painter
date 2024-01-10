@@ -45,6 +45,7 @@ export function createBoardDrag(board: PainterBoard) {
       PainterBrush.enabled = true
     }
   }
+
   // space drag
   document.addEventListener('keydown', onKeyDown)
   document.addEventListener('keyup', onKeyUp)
@@ -73,10 +74,8 @@ export function createBoardDrag(board: PainterBoard) {
 
   return {
     destroy() {
-      if (keyCode) {
-        document.removeEventListener('keydown', onKeyDown)
-        document.removeEventListener('keyup', onKeyUp)
-      }
+      document.removeEventListener('keydown', onKeyDown)
+      document.removeEventListener('keyup', onKeyUp)
 
       area.off('pointerdown', onDragStart)
     },

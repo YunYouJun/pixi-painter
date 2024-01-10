@@ -5,28 +5,34 @@ export function PixiPainter() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
+  let painter: ReturnType<typeof createPainter>
+
   useEffect(() => {
     const width = containerRef.current!.clientWidth
     const height = containerRef.current!.clientHeight
 
     // console.log('width', width, height)
 
-    const painter = createPainter({
-      view: canvasRef.current!,
-      size: {
-        width,
-        height,
-      },
-    })
-
-    return () => {
-      painter.destroy()
+    // canvas gl once
+    if (!painter) {
+      painter = createPainter({
+        view: canvasRef.current!,
+        size: {
+          width,
+          height,
+        },
+      })
+      painter.init()
     }
+
+    // return () => {
+    //   painter.destroy()
+    // }
   }, [])
 
   return (
     <div ref={containerRef} className="pixi-painter-container">
-      <canvas className="h-full w-full" ref={canvasRef} id="canvas" width="800" height="600" />
+      <canvas className="pixi-painter-canvas h-full w-full" ref={canvasRef} id="canvas" width="800" height="600" />
     </div>
   )
 }
