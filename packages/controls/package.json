@@ -1,5 +1,6 @@
 {
   "name": "@pixi-painter/controls",
+  "version": "0.0.5",
   "dependencies": {
     "@advjs/gui": "^0.0.3-beta.7"
   },
