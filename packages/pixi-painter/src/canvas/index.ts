@@ -49,6 +49,9 @@ export class PainterCanvas {
     const boardContainer = this.painter.board.container
 
     this.painter.app.stage.on('wheel', (e) => {
+      e.preventDefault()
+      e.stopPropagation()
+
       const scroll = Math.sign(e.deltaY) * Math.min(Math.abs(e.deltaY), 50)
       const scale = Math.max(boardContainer.scale.x * (1 + scroll / 500), this.minScale)
 
@@ -67,6 +70,10 @@ export class PainterCanvas {
       )
       // this.painter.brush.graphics.scale.set(scale)
     })
+  }
+
+  destroy() {
+    this.painter.app.stage.off('wheel')
   }
 }
 

@@ -1,5 +1,5 @@
-import type { PainterBoard } from 'src/board'
 import type * as PIXI from 'pixi.js'
+import type { PainterBoard } from '../board'
 import { PainterBrush } from '../index'
 
 /**
