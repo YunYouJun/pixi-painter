@@ -18,11 +18,22 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
+        with:
+          run_install: true
 
-      - name: Set node
+      # after pnpm
+      - name: Use Node.js LTS
         uses: actions/setup-node@v3
         with:
-          node-version: lts/*
+          node-version: 'lts/*'
+          registry-url: https://registry.npmjs.org/
+          cache: pnpm
+
+      # https://docs.github.com/en/actions/publishing-packages/publishing-nodejs-packages
+      - run: cd packages/pixi-painter && npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+          NPM_CONFIG_PROVENANCE: true
 
       - run: npx changelogithub
         env:

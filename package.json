@@ -25,7 +25,7 @@
     "test": "vitest",
     "typecheck": "tsc --noEmit",
     "prepare": "simple-git-hooks",
-    "release": "bumpp && pnpm -C packages/pixi-painter run release"
+    "release": "bumpp"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.2",
