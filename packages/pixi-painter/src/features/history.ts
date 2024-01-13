@@ -18,7 +18,7 @@ export class PainterHistory {
   } = {
     capacity: 20,
   }) {
-    consola.info('PainterHistory')
+    consola.info('PainterHistory Init')
 
     this.painter = painter
     this.capacity = options.capacity
