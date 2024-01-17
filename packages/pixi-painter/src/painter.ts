@@ -88,6 +88,11 @@ export class Painter {
    */
   contextMenu = new Container()
 
+  /**
+   * pointer in stage
+   */
+  isPointerInStage = false
+
   constructor(options: PainterOptions) {
     this.options = options
     const {
@@ -120,7 +125,11 @@ export class Painter {
 
     // resize
     window.addEventListener('resize', () => {
-      this.app.renderer.resize(window.innerWidth, window.innerHeight)
+      const box = this.app.view.getBoundingClientRect?.()
+      if (box) {
+        const { width, height } = box
+        this.app.renderer.resize(width, height)
+      }
     })
 
     // add image drop
@@ -161,6 +170,17 @@ export class Painter {
       e.preventDefault()
       // console.log(e)
     })
+
+    // app
+    app.stage.on('pointerenter', () => {
+      this.isPointerInStage = true
+    })
+    const onPointerLeave = () => {
+      this.isPointerInStage = false
+    }
+    app.stage.on('pointerleave', onPointerLeave)
+    app.stage.on('pointerupoutside', onPointerLeave)
+    app.stage.on('pointercancel', onPointerLeave)
   }
 
   /**
@@ -216,6 +236,9 @@ export class Painter {
     this.boundingBoxes.visible = false
   }
 
+  /**
+   * toggle tool
+   */
   useTool(name: PainterTool) {
     this.emitter.emit('tool:change', name)
     this.tool = name
@@ -272,6 +295,9 @@ export class Painter {
     input.click()
   }
 
+  /**
+   * @default
+   */
   async extractCanvas(type: 'image' | 'base64' | 'canvas' | 'pixels' = 'image') {
     const { app } = this
     const target = this.board.container

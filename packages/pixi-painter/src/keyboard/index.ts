@@ -1,3 +1,4 @@
+import consola from 'consola'
 import type { Painter } from '../painter'
 
 export class Keyboard {
@@ -23,6 +24,13 @@ export class Keyboard {
   }
 
   keydown(e: KeyboardEvent) {
+    // if pointer not in stage, ignore shortcuts
+    if (!this.painter.isPointerInStage)
+      return
+
+    if (this.painter.debug)
+      consola.info(e.code)
+
     this.keyState.set(e.code, true)
 
     let commonKey = false

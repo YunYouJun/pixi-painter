@@ -16,6 +16,7 @@ export function PixiPainter() {
     // canvas gl once
     if (!painter) {
       painter = createPainter({
+        debug: import.meta.env.DEV,
         view: canvasRef.current!,
         size: {
           width,
@@ -32,7 +33,7 @@ export function PixiPainter() {
 
   return (
     <div ref={containerRef} className="pixi-painter-container">
-      <canvas className="pixi-painter-canvas h-full w-full" ref={canvasRef} id="canvas" width="800" height="600" />
+      <canvas className="pixi-painter-canvas h-full w-full" ref={canvasRef} id="canvas" width="1000" height="800" />
     </div>
   )
 }
