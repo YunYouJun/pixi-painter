@@ -28,15 +28,15 @@
     "release": "bumpp"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^2.6.2",
-    "bumpp": "^9.2.1",
+    "@antfu/eslint-config": "^2.6.3",
+    "bumpp": "^9.3.0",
     "eslint": "^8.56.0",
     "eslint-plugin-format": "^0.1.0",
     "lint-staged": "^15.2.0",
     "simple-git-hooks": "^2.9.0",
     "typescript": "^5.3.3",
     "unocss": "^0.58.3",
-    "vitest": "^1.2.0"
+    "vitest": "^1.2.1"
   },
   "simple-git-hooks": {
     "pre-commit": "pnpm lint-staged"

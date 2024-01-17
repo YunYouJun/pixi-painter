@@ -2,14 +2,6 @@ import { Graphics, Point } from 'pixi.js'
 import type * as PIXI from 'pixi.js'
 import type { Painter } from '../painter'
 
-export interface BrushOptions {
-  renderTexture?: PIXI.RenderTexture
-  /**
-   * The radius of the brush.
-   */
-  radius?: number
-}
-
 export class PainterEraser {
   static index = 0
   /**

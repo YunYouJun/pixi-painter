@@ -29,7 +29,7 @@
     "release": "bumpp && npm publish"
   },
   "dependencies": {
-    "@ctrl/tinycolor": "^4.0.2",
+    "@ctrl/tinycolor": "^4.0.3",
     "@pixi/math-extras": "^7.3.3",
     "consola": "^3.2.3",
     "mitt": "^3.0.1",
