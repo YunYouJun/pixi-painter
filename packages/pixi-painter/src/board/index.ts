@@ -9,6 +9,11 @@ export class PainterBoard {
 
   boardDrag: ReturnType<typeof createBoardDrag>
 
+  /**
+   * whether board can be dragged
+   */
+  dragMode = false
+
   constructor(painter: Painter) {
     this.painter = painter
     this.container.name = 'boardContainer'

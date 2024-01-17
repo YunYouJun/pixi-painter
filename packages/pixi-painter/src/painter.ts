@@ -17,6 +17,7 @@ import { PainterEraser, createEraser } from './eraser'
 
 export const PAINTER_TOOLS = [
   'brush',
+  'drag',
   'eraser',
   'image',
   'selection',
@@ -245,9 +246,13 @@ export class Painter {
 
     PainterBrush.enabled = false
     PainterEraser.enabled = false
+    this.board.dragMode = false
     this.hideBoundingBox()
 
     switch (name) {
+      case 'drag':
+        this.useDrag()
+        break
       case 'brush':
         this.useBrush()
         break
@@ -263,6 +268,10 @@ export class Painter {
       default:
         break
     }
+  }
+
+  useDrag() {
+    this.board.dragMode = true
   }
 
   useBrush() {

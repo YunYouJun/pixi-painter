@@ -56,6 +56,9 @@ export class Keyboard {
       case 'KeyB':
         this.painter.useTool('brush')
         break
+      case 'KeyD':
+        this.painter.useTool('drag')
+        break
       case 'KeyE':
         this.painter.useTool('eraser')
         break

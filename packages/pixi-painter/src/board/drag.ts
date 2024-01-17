@@ -9,6 +9,7 @@ export function createBoardDrag(board: PainterBoard) {
   let dragTargets: PIXI.Container[] = []
   // space press
   let isKeyPressed = false
+  const canDrag = () => isKeyPressed || board.dragMode
 
   const app = board.painter.app
   const area = app.stage
@@ -16,7 +17,7 @@ export function createBoardDrag(board: PainterBoard) {
   const keyCode = 'Space'
 
   function onDragStart() {
-    if (isKeyPressed) {
+    if (canDrag()) {
       dragTargets = containers
       area.on('pointermove', onDragMove)
     }
