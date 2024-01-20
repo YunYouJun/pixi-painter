@@ -7,8 +7,8 @@ import consola from 'consola'
 import axios from 'axios'
 
 // const online = useOnline()
-
-axios.defaults.baseURL = 'http://localhost:8080/api'
+// https://turbo.art/
+axios.defaults.baseURL = import.meta.env.VITE_API_BASE_URL as string
 
 const srcCanvas = ref<HTMLCanvasElement>()
 const targetCanvas = ref<HTMLCanvasElement>()
