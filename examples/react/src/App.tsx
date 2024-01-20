@@ -14,6 +14,7 @@ function App() {
         </a>
       </div>
       <h1>Pixi Painter + React</h1>
+      <input />
       <div className="card">
         <PixiPainter />
       </div>

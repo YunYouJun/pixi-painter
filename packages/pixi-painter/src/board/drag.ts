@@ -33,8 +33,6 @@ export function createBoardDrag(board: PainterBoard) {
     if (e.code === keyCode) {
       isKeyPressed = true
       setCursorStyle('grab')
-      e.preventDefault()
-
       PainterBrush.enabled = false
     }
   }

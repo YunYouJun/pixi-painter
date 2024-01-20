@@ -36,6 +36,10 @@ export class PainterBoard {
     this.container.scale.set(1)
   }
 
+  clear() {
+    this.container.removeChildren()
+  }
+
   destroy() {
     this.boardDrag.destroy()
     this.container.destroy()
