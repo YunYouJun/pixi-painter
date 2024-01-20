@@ -72,10 +72,10 @@ export function usePixiPainter() {
         height: window.innerHeight,
       },
     })
-    await painter.value.init()
     // painter.value.background.color = 0xFFFFFF
 
-    painter.value?.loadImage('https://pixijs.com/assets/flowerTop.png')
+    await painter.value?.loadImage('https://pixijs.com/assets/flowerTop.png')
+    await painter.value.init()
 
     const tCanvas = targetCanvas.value
     if (tCanvas) {
