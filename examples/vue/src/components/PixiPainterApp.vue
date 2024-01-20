@@ -118,7 +118,7 @@ function getLayersData(container: PIXI.Container) {
 <template>
   <div relative h-screen w-screen overflow="hidden">
     <template v-if="painter">
-      <PainterControls :painter="painter" class="absolute left-2 top-10" @extract="onExtract" />
+      <PainterControls :painter="painter" class="absolute left-2 top-13" @extract="onExtract" />
       <PainterOptionsBar class="absolute left-2 top-2" />
     </template>
 

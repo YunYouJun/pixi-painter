@@ -44,6 +44,16 @@ const tools = [
     onClick: () => props.painter.clearCanvas(),
   },
   {
+    id: 'scale-up',
+    icon: 'i-ph-plus',
+    onClick: () => props.painter.canvas.scaleUp(),
+  },
+  {
+    id: 'scale-down',
+    icon: 'i-ph-minus',
+    onClick: () => props.painter.canvas.scaleDown(),
+  },
+  {
     id: 'extract',
     icon: 'i-ph-export',
     onClick: async () => {

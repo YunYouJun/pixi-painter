@@ -55,6 +55,15 @@ export class PainterCanvas {
 
     this.background = canvasBg
 
+    // mount children
+    this.container.addChild(canvasBg)
+    // container children
+    // add it after bg
+    this.container.addChild(this.layersContainer)
+    this.bindEvents()
+  }
+
+  bindEvents() {
     // event
     const boardContainer = this.painter.board.container
 
@@ -81,12 +90,20 @@ export class PainterCanvas {
       )
       // this.painter.brush.graphics.scale.set(scale)
     })
+  }
 
-    // mount children
-    this.container.addChild(canvasBg)
-    // container children
-    // add it after bg
-    this.container.addChild(this.layersContainer)
+  scaleTo(scale: number) {
+    const boardContainer = this.painter.board.container
+    boardContainer.scale.set(scale)
+    this.painter.boundingBoxes.scale.set(scale)
+  }
+
+  scaleUp() {
+    this.scaleTo(this.painter.board.container.scale.x * 1.1)
+  }
+
+  scaleDown() {
+    this.scaleTo(this.painter.board.container.scale.x * 0.9)
   }
 
   clearLayers() {
