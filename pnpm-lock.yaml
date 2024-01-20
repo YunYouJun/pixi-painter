@@ -92,8 +92,8 @@ importers:
         version: 3.4.15(typescript@5.3.3)
     devDependencies:
       '@advjs/gui':
-        specifier: ^0.0.3-beta.14
-        version: 0.0.3-beta.14(react@18.2.0)(vue@3.4.15)
+        specifier: ^0.0.3-beta.17
+        version: 0.0.3-beta.17(react@18.2.0)(vue@3.4.15)
       '@vitejs/plugin-vue':
         specifier: ^5.0.3
         version: 5.0.3(vite@5.0.12)(vue@3.4.15)
@@ -119,8 +119,8 @@ importers:
   packages/controls:
     dependencies:
       '@advjs/gui':
-        specifier: ^0.0.3-beta.14
-        version: 0.0.3-beta.14(react@18.2.0)(vue@3.4.15)
+        specifier: ^0.0.3-beta.17
+        version: 0.0.3-beta.17(react@18.2.0)(vue@3.4.15)
     devDependencies:
       '@iconify-json/ph':
         specifier: ^1.1.10
@@ -221,8 +221,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /@advjs/gui@0.0.3-beta.14(react@18.2.0)(vue@3.4.15):
-    resolution: {integrity: sha512-CQk4EKSVR2kpRSjSiKp1iB14qVjXc8bHv7qWAXp4zXdg2uTXzj+tiaxLan2ZNQZpknr/XOFdIPzN5eP/vLVXFA==}
+  /@advjs/gui@0.0.3-beta.17(react@18.2.0)(vue@3.4.15):
+    resolution: {integrity: sha512-lL0HAZPndqOVRcgq8eDhAk4p/sBKRHty9S90b+fOZwk6duTyfuCMbgi0x/sbl0EZxITF80WJ0ocKyWbfrHF2hQ==}
     dependencies:
       '@headlessui/vue': 1.7.17(vue@3.4.15)
       '@iconify-json/vscode-icons': 1.1.33
