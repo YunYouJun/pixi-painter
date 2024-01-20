@@ -1,7 +1,10 @@
 import consola from 'consola'
+import hotkeys from 'hotkeys-js'
 import type { Painter } from '../painter'
 
 export class Keyboard {
+  static shortcuts: Record<string, () => void> = {}
+
   platform: 'macos' | 'windows'
 
   painter: Painter
@@ -15,6 +18,33 @@ export class Keyboard {
     window.addEventListener('keyup', this.keyup.bind(this))
 
     this.platform = navigator.userAgent.includes('Windows') ? 'windows' : 'macos'
+
+    Keyboard.shortcuts = {
+      'esc': () => this.painter.cancelSelection(),
+      'b': () => this.painter.useTool('brush'),
+      'd': () => this.painter.useTool('drag'),
+      'e': () => this.painter.useTool('eraser'),
+      's': () => this.painter.useTool('selection'),
+      'h': () => this.painter.board.resetToCenter(),
+      'i': () => this.painter.useTool('image'),
+      'ctrl+z': () => this.painter.history.undo(),
+      'ctrl+shift+z': () => this.painter.history.redo(),
+      // '?': () => this.painter.showHelp(),
+    }
+
+    Object.keys(Keyboard.shortcuts).forEach((key) => {
+      hotkeys(key, (e, _handler) => {
+        // if pointer not in stage, ignore shortcuts
+        if (!this.painter.isPointerInStage)
+          return
+
+        if (this.painter.debug)
+          consola.info(e.code)
+
+        this.keyState.set(e.code, true)
+        Keyboard.shortcuts[key]()
+      })
+    })
   }
 
   // initShortcuts() { }
@@ -30,66 +60,6 @@ export class Keyboard {
 
     if (this.painter.debug)
       consola.info(e.code)
-
-    this.keyState.set(e.code, true)
-
-    let commonKey = false
-    switch (e.code) {
-      // case 'ArrowLeft':
-      //   this.painter.moveSelection(-1, 0)
-      //   break
-      // case 'ArrowRight':
-      //   this.painter.moveSelection(1, 0)
-      //   break
-      // case 'ArrowUp':
-      //   this.painter.moveSelection(0, -1)
-      //   break
-      // case 'ArrowDown':
-      //   this.painter.moveSelection(0, 1)
-      //   break
-      // case 'Delete':
-      //   this.painter.deleteSelection()
-      //   break
-      case 'Escape':
-        this.painter.cancelSelection()
-        break
-      case 'KeyB':
-        this.painter.useTool('brush')
-        break
-      case 'KeyD':
-        this.painter.useTool('drag')
-        break
-      case 'KeyE':
-        this.painter.useTool('eraser')
-        break
-      case 'KeyS':
-        this.painter.useTool('selection')
-        break
-      case 'KeyH':
-        this.painter.board.resetToCenter()
-        break
-      case 'KeyI':
-        // import image
-        this.painter.useTool('image')
-        break
-      case 'KeyZ':
-        // macos: Command + Z
-        // windows: Ctrl + Z
-        commonKey = (this.platform === 'macos')
-          ? e.metaKey
-          : e.ctrlKey
-
-        if (e.shiftKey && commonKey)
-          this.painter.history.redo()
-        else if (commonKey)
-          this.painter.history.undo()
-        break
-      case 'Slash':
-        // todo show help
-        break
-      default:
-        break
-    }
   }
 
   keyup(e: KeyboardEvent) {
@@ -97,6 +67,7 @@ export class Keyboard {
   }
 
   destroy() {
+    hotkeys.unbind()
     window.removeEventListener('keydown', this.keydown)
     window.removeEventListener('keyup', this.keyup)
   }

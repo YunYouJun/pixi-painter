@@ -215,7 +215,11 @@ export class Painter {
   /**
    * toggle to selection when image loaded
    */
-  async loadImage(src: string) {
+  async loadImage(src: string, options: {
+    autoToggleSelection?: boolean
+  } = {
+    autoToggleSelection: true,
+  }) {
     const imgSprite = await importImageSprite(src)
     imgSprite.name = src
 
@@ -241,7 +245,8 @@ export class Painter {
       },
     })
 
-    this.useTool('selection')
+    if (options.autoToggleSelection)
+      this.useTool('selection')
   }
 
   showBoundingBox() {

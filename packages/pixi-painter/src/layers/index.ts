@@ -186,8 +186,7 @@ export class EditableLayer extends Container {
         })
       })
       menuContainer.appendChild(deleteBtn)
-
-      document.body.appendChild(menuContainer)
+      this.painter.app.view.parentNode?.appendChild(menuContainer)
 
       const removeMenu = () => {
         menuContainer.remove()

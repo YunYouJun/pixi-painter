@@ -1,5 +1,6 @@
 import { Container, Graphics } from 'pixi.js'
 import type { Painter } from '../painter'
+import { PainterBoard } from '../board'
 
 export class PainterCanvas {
   container = new Container()
@@ -18,10 +19,13 @@ export class PainterCanvas {
     this.container.name = 'canvasContainer'
 
     const { options } = this.painter
-    const { boardSize = {
-      width: 512,
-      height: 512,
-    } } = options
+    const {
+      boardSize = {
+        width: 512,
+        height: 512,
+      },
+    } = options
+    PainterBoard.size = boardSize
 
     // mask shape
     const canvasShape = new Graphics()
@@ -73,6 +77,10 @@ export class PainterCanvas {
       // this.painter.brush.graphics.scale.set(scale)
     })
   }
+
+  // clear() {
+  //   this.container.mo
+  // }
 
   destroy() {
     this.painter.app.stage.off('wheel')

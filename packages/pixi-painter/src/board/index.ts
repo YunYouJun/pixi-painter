@@ -3,6 +3,11 @@ import type { Painter } from '../index'
 import { createBoardDrag } from './drag'
 
 export class PainterBoard {
+  static size = {
+    width: 512,
+    height: 512,
+  }
+
   painter: Painter
   container = new Container()
   minScale = 0.3
@@ -34,10 +39,6 @@ export class PainterBoard {
     this.container.y = this.painter.app.view.height / this.painter.app.renderer.resolution / 2
 
     this.container.scale.set(1)
-  }
-
-  clear() {
-    this.container.removeChildren()
   }
 
   destroy() {
