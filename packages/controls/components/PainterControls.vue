@@ -39,6 +39,11 @@ const tools = [
     onClick: () => props.painter.useTool('selection'),
   },
   {
+    id: 'clear',
+    icon: 'i-ph-trash',
+    onClick: () => props.painter.clearCanvas(),
+  },
+  {
     id: 'extract',
     icon: 'i-ph-export',
     onClick: async () => {

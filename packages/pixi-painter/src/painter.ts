@@ -227,7 +227,7 @@ export class Painter {
     const layer = new EditableLayer(this)
     layer.eventMode = 'static'
     layer.name = `Image ${EditableLayer.order++}`
-    canvas.container.addChild(layer)
+    canvas.layersContainer.addChild(layer)
     layer.addChild(imgSprite)
     layer.updateTransform()
     layer.updateTransformBoundingBox()
@@ -340,6 +340,14 @@ export class Painter {
       return app.renderer.extract.pixels(target)
     else
       throw new Error(`unknown type: ${type}`)
+  }
+
+  /**
+   * clear content in inner canvas
+   */
+  clearCanvas() {
+    this.canvas.clearLayers()
+    this.boundingBoxes.removeChildren()
   }
 
   destroy() {

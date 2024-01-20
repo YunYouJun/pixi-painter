@@ -12,6 +12,7 @@ export async function importImageSprite(src: string) {
     img.onload = () => {
       const texture = Texture.from(img)
       const sprite = new Sprite(texture)
+      // auto scale for drag img
       if (img.width > PainterBoard.size.width || img.height > PainterBoard.size.height) {
         const scale = Math.min(PainterBoard.size.width / img.width, PainterBoard.size.height / img.height)
         sprite.scale.set(scale)

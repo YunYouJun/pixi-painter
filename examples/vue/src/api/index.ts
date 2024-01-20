@@ -12,12 +12,12 @@ export const api = axios.create({
 export function postImage(params: {
   image: Blob
   prompt?: string
-  num_iterations?: string
+  num_iterations?: number
 }) {
   const formData = new FormData()
   formData.append('image', params.image)
   formData.append('prompt', params.prompt || '')
-  formData.append('num_iterations', params.num_iterations || '2')
+  formData.append('num_iterations', params.num_iterations?.toString() || '2')
   return api.post('/api', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',

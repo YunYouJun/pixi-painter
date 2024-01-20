@@ -1,10 +1,11 @@
 <script lang="ts" setup>
-import { shallowRef } from 'vue'
+import { shallowRef, unref } from 'vue'
 
 import type * as PIXI from 'pixi.js'
 
 import type { Painter } from 'pixi-painter'
 import { createPainter } from 'pixi-painter'
+import { modalOptions } from '../composables/global'
 
 import { postImage } from '../api/index'
 
@@ -59,8 +60,8 @@ onMounted(async () => {
         return
 
       const res = await postImage({
-        prompt: '椅子， 杰作, 最好质量，',
         image: blob,
+        ...unref(modalOptions),
       })
       onExtract(URL.createObjectURL(res.data))
     })
@@ -132,6 +133,17 @@ function getLayersData(container: PIXI.Container) {
     <div class="absolute bottom-0 right-0 h-80 w-80 rounded" bg-gray>
       <canvas id="target-canvas" ref="targetCanvas" />
     </div>
+
+    <AGUIPanel class="absolute bottom-2 left-0 w-72">
+      <AGUIForm>
+        <AGUIFormItem label="Prompt">
+          <AGUIInput v-model="modalOptions.prompt" class="w-full" />
+        </AGUIFormItem>
+        <AGUIFormItem label="Num Iterations">
+          <AGUIInputNumber v-model="modalOptions.num_iterations" class="w-full" :min="1" :max="100" :step="1" />
+        </AGUIFormItem>
+      </AGUIForm>
+    </AGUIPanel>
   </div>
 </template>
 

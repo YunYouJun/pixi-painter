@@ -13,7 +13,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://kulsisme--stable-diffusion-xl-turbo-fastapi-app.modal.run/',
+        target: 'https://modal-labs--stable-diffusion-xl-turbo-model-inference.modal.run/',
         changeOrigin: true,
         rewrite: path => path.replace(/^\/api/, ''),
       },

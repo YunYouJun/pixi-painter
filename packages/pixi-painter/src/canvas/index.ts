@@ -7,6 +7,11 @@ export class PainterCanvas {
   painter: Painter
 
   /**
+   * for paint graphics
+   */
+  layersContainer = new Container()
+
+  /**
    * The background of the canvas.
    */
   background: Graphics
@@ -17,6 +22,7 @@ export class PainterCanvas {
   constructor(painter: Painter) {
     this.painter = painter
     this.container.name = 'canvasContainer'
+    this.layersContainer.name = 'layersContainer'
 
     const { options } = this.painter
     const {
@@ -49,11 +55,10 @@ export class PainterCanvas {
 
     this.background = canvasBg
 
-    this.container.addChild(canvasBg)
-
     // event
     const boardContainer = this.painter.board.container
 
+    // scale
     this.painter.app.stage.on('wheel', (e) => {
       e.preventDefault()
       e.stopPropagation()
@@ -76,11 +81,17 @@ export class PainterCanvas {
       )
       // this.painter.brush.graphics.scale.set(scale)
     })
+
+    // mount children
+    this.container.addChild(canvasBg)
+    // container children
+    // add it after bg
+    this.container.addChild(this.layersContainer)
   }
 
-  // clear() {
-  //   this.container.mo
-  // }
+  clearLayers() {
+    this.layersContainer.removeChildren()
+  }
 
   destroy() {
     this.painter.app.stage.off('wheel')

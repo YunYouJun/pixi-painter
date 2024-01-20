@@ -59,9 +59,16 @@ export class PainterBrush {
 
   painter: Painter
 
+  /**
+   * mounted to container
+   */
+  parentContainer: PIXI.Container
+
   constructor(painter: Painter) {
     this.painter = painter
     this.setup(painter)
+
+    this.parentContainer = painter.canvas.layersContainer
   }
 
   getPressure(event: PIXI.FederatedPointerEvent) {
@@ -76,7 +83,9 @@ export class PainterBrush {
     // new draw
     this.graphics = new Graphics().beginFill(PainterBrush.color)
     this.graphics.name = `brushGraphics ${PainterBrush.index++}`
-    this.painter.canvas.container.addChild(this.graphics)
+
+    // add to container
+    this.parentContainer.addChild(this.graphics)
 
     this.dragging = true
     this.pointerMove(event)
@@ -88,7 +97,7 @@ export class PainterBrush {
 
     const { global: { x, y } } = event
     // local position relative to the canvas
-    const localPos = event.getLocalPosition(this.painter.canvas.container, { x, y })
+    const localPos = event.getLocalPosition(this.parentContainer, { x, y })
     const graphics = this.graphics
     if (!graphics)
       return
@@ -178,7 +187,7 @@ export class PainterBrush {
 
     const { global } = event
     if (this.lastDrawnPoint) {
-      const localPos = event.getLocalPosition(this.painter.canvas.container, global)
+      const localPos = event.getLocalPosition(this.parentContainer, global)
       this.graphics!
       // .clear()
         .lineStyle({ width: PainterBrush.size * 2 * this.getPressure(event), color: PainterBrush.color })
