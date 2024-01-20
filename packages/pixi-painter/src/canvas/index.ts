@@ -41,6 +41,8 @@ export class PainterCanvas {
     const canvasBg = canvasShape.clone()
     canvasBg.name = 'canvasBg'
     canvasBg.position.set(0, 0)
+    canvasBg.zIndex = -1
+
     this.background = canvasBg
 
     this.container.addChild(canvasBg)

@@ -124,15 +124,6 @@ export class Painter {
     stage.eventMode = 'static'
     stage.hitArea = this.app.screen
 
-    // resize
-    window.addEventListener('resize', () => {
-      const box = this.app.view.getBoundingClientRect?.()
-      if (box) {
-        const { width, height } = box
-        this.app.renderer.resize(width, height)
-      }
-    })
-
     // add image drop
     addImageDropListener(this, options.view)
 
@@ -188,10 +179,29 @@ export class Painter {
    * init
    */
   async init() {
+    this.removeEventListeners = this.addEventListeners()
     setTimeout(() => {
       this.useTool('brush')
     }, 1)
   }
+
+  onResize() {
+    const box = this.app.view.getBoundingClientRect?.()
+    if (box) {
+      const { width, height } = box
+      this.app.renderer.resize(width, height)
+    }
+  }
+
+  addEventListeners() {
+    // resize
+    window.addEventListener('resize', this.onResize.bind(this))
+    return () => {
+      window.removeEventListener('resize', this.onResize.bind(this))
+    }
+  }
+
+  removeEventListeners() { }
 
   /**
    * board background
@@ -202,6 +212,9 @@ export class Painter {
     return this.app.renderer.background
   }
 
+  /**
+   * toggle to selection when image loaded
+   */
   async loadImage(src: string) {
     const imgSprite = await importImageSprite(src)
     imgSprite.name = src
@@ -227,6 +240,8 @@ export class Painter {
         layer.boundingBoxContainer.visible = true
       },
     })
+
+    this.useTool('selection')
   }
 
   showBoundingBox() {
@@ -323,6 +338,7 @@ export class Painter {
   }
 
   destroy() {
+    this.removeEventListeners()
     this.brush.destroy()
     this.eraser.destroy()
     this.board.destroy()
