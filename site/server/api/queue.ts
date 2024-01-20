@@ -10,6 +10,7 @@ function sleep(ms: number) {
   return new Promise(resolve => setTimeout(resolve, ms))
 }
 
+// for local ComfyUI
 axios.defaults.baseURL = 'http://localhost:8188'
 
 const targetDir = 'F:/ai/ComfyUI_windows_portable/ComfyUI/temp'

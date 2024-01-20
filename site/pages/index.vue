@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import '@pixi/unsafe-eval'
+
 import type { Painter } from 'pixi-painter'
 import { createPainter } from 'pixi-painter'
 
@@ -13,7 +15,7 @@ onMounted(() => {
     return
 
   painter.value = createPainter({
-    canvas: srcCanvas.value,
+    view: targetCanvas.value,
   })
 })
 </script>

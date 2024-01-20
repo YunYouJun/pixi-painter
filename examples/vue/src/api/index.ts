@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = '/'
+const baseUrl = import.meta.env.VITE_API_BASE_URL as string | '/api'
 
 export const api = axios.create({
   baseURL: baseUrl,
@@ -18,7 +18,7 @@ export function postImage(params: {
   formData.append('image', params.image)
   formData.append('prompt', params.prompt || '')
   formData.append('num_iterations', params.num_iterations?.toString() || '2')
-  return api.post('/api', formData, {
+  return api.post('/', formData, {
     headers: {
       'Content-Type': 'multipart/form-data',
     },
