@@ -1,5 +1,6 @@
 import { Graphics, Point } from 'pixi.js'
 import type * as PIXI from 'pixi.js'
+import { PainterEraser } from '../eraser'
 import type { Painter } from '../painter'
 
 export interface BrushOptions {
@@ -33,6 +34,11 @@ export class PainterBrush {
   static enablePressure = true
 
   static graphicsPool: PIXI.Graphics[] = []
+
+  /**
+   * The circle shape of the brush.
+   */
+  circle = new Graphics().lineStyle(1, 0x000000)
 
   /**
    * prepare circle texture, that will be our brush
@@ -69,6 +75,20 @@ export class PainterBrush {
     this.setup(painter)
 
     this.parentContainer = painter.canvas.layersContainer
+
+    // brush shape
+    this.circle.name = 'brush'
+    this.circle.lineStyle(1, 0x000000)
+      .drawCircle(0, 0, PainterBrush.size / 2)
+    this.circle.zIndex = 999
+
+    const stage = painter.app.stage
+    stage.addEventListener('pointermove', (e) => {
+      const { global: { x, y } } = e
+      const localPos = e.getLocalPosition(stage, { x, y })
+      this.circle.position.set(localPos.x, localPos.y)
+    })
+    stage.addChild(this.circle)
   }
 
   getPressure(event: PIXI.FederatedPointerEvent) {
@@ -198,6 +218,24 @@ export class PainterBrush {
     }
 
     this.painter.emitter.emit('brush:out')
+  }
+
+  sizeDown() {
+    const size = Math.max(1, PainterBrush.size - 1)
+    this.circle.clear()
+    this.circle.lineStyle(1, 0x000000)
+    this.circle.drawCircle(0, 0, size / 2)
+    PainterBrush.size = size
+    PainterEraser.size = size
+  }
+
+  sizeUp() {
+    const size = PainterBrush.size + 1
+    this.circle.clear()
+    this.circle.lineStyle(1, 0x000000)
+    this.circle.drawCircle(0, 0, size / 2)
+    PainterBrush.size = size
+    PainterEraser.size = size
   }
 
   destroy() {

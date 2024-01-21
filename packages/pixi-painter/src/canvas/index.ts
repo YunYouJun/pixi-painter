@@ -77,17 +77,15 @@ export class PainterCanvas {
 
       const offset = e.getLocalPosition(boardContainer)
 
-      boardContainer.scale.set(scale)
       boardContainer.position.set(
         e.global.x - offset.x * scale,
         e.global.y - offset.y * scale,
       )
-
-      this.painter.boundingBoxes.scale.set(scale)
       this.painter.boundingBoxes.position.set(
         boardContainer.position.x,
         boardContainer.position.y,
       )
+      this.scaleTo(scale)
       // this.painter.brush.graphics.scale.set(scale)
     })
   }
@@ -96,12 +94,19 @@ export class PainterCanvas {
     const boardContainer = this.painter.board.container
     boardContainer.scale.set(scale)
     this.painter.boundingBoxes.scale.set(scale)
+    this.painter.brush.circle.scale.set(scale)
   }
 
+  /**
+   * scale up
+   */
   scaleUp() {
     this.scaleTo(this.painter.board.container.scale.x * 1.1)
   }
 
+  /**
+   * scale down
+   */
   scaleDown() {
     this.scaleTo(this.painter.board.container.scale.x * 0.9)
   }

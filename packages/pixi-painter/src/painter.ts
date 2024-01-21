@@ -148,15 +148,15 @@ export class Painter {
     // ...
     this.store = createStore(options)
 
-    this.app.stage.name = 'stage'
-    this.app.stage.addChild(this.board.container)
+    stage.name = 'stage'
+    stage.addChild(this.board.container)
 
     // boxes
     const { app } = this
     this.boundingBoxes.name = 'boundingBoxes'
     this.boundingBoxes.x = app.view.width / app.renderer.resolution / 2
     this.boundingBoxes.y = app.view.height / app.renderer.resolution / 2
-    this.app.stage.addChild(this.boundingBoxes)
+    stage.addChild(this.boundingBoxes)
 
     options.view.addEventListener('contextmenu', (e) => {
       e.preventDefault()
@@ -164,15 +164,16 @@ export class Painter {
     })
 
     // app
-    app.stage.on('pointerenter', () => {
+    stage.sortChildren()
+    stage.on('pointerenter', () => {
       this.isPointerInStage = true
     })
     const onPointerLeave = () => {
       this.isPointerInStage = false
     }
-    app.stage.on('pointerleave', onPointerLeave)
-    app.stage.on('pointerupoutside', onPointerLeave)
-    app.stage.on('pointercancel', onPointerLeave)
+    stage.on('pointerleave', onPointerLeave)
+    stage.on('pointerupoutside', onPointerLeave)
+    stage.on('pointercancel', onPointerLeave)
   }
 
   /**
@@ -251,10 +252,20 @@ export class Painter {
 
   showBoundingBox() {
     this.boundingBoxes.visible = true
+    this.canvas.layersContainer.children.forEach((layer) => {
+      layer.children?.forEach((child) => {
+        child.cursor = 'move'
+      })
+    })
   }
 
   hideBoundingBox() {
     this.boundingBoxes.visible = false
+    this.canvas.layersContainer.children.forEach((layer) => {
+      layer.children?.forEach((child) => {
+        child.cursor = 'default'
+      })
+    })
   }
 
   /**
@@ -268,6 +279,8 @@ export class Painter {
     PainterEraser.enabled = false
     this.board.dragMode = false
     this.hideBoundingBox()
+    this.app.stage.cursor = 'default'
+    this.brush.circle.visible = false
 
     switch (name) {
       case 'drag':
@@ -295,14 +308,20 @@ export class Painter {
   }
 
   useBrush() {
+    this.brush.circle.visible = true
     PainterBrush.enabled = true
+    this.app.stage.cursor = 'none'
   }
 
   useEraser() {
+    this.brush.circle.visible = true
     PainterEraser.enabled = true
+    this.app.stage.cursor = 'none'
   }
 
   useSelection() {
+    this.app.stage.interactive = true
+    this.app.stage.cursor = 'crosshair'
     this.showBoundingBox()
   }
 
@@ -361,6 +380,24 @@ export class Painter {
       texture: true,
       baseTexture: true,
     })
+  }
+
+  // helper
+  zoomIn() {
+    this.canvas.scaleUp()
+  }
+
+  zoomOut() {
+    this.canvas.scaleDown()
+  }
+
+  // 缩小画笔尺寸
+  brushSizeDown() {
+    this.brush.sizeDown()
+  }
+
+  brushSizeUp() {
+    this.brush.sizeUp()
   }
 }
 

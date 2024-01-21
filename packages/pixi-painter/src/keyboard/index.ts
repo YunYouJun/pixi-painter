@@ -29,6 +29,10 @@ export class Keyboard {
       'i': () => this.painter.useTool('image'),
       'ctrl+z': () => this.painter.history.undo(),
       'ctrl+shift+z': () => this.painter.history.redo(),
+      '=': () => this.painter.zoomIn(),
+      '-': () => this.painter.zoomOut(),
+      '[': () => this.painter.brushSizeDown(),
+      ']': () => this.painter.brushSizeUp(),
       // '?': () => this.painter.showHelp(),
     }
 

@@ -45,12 +45,12 @@ const tools = [
   },
   {
     id: 'scale-up',
-    icon: 'i-ph-plus',
+    icon: 'i-ph-magnifying-glass-plus',
     onClick: () => props.painter.canvas.scaleUp(),
   },
   {
     id: 'scale-down',
-    icon: 'i-ph-minus',
+    icon: 'i-ph-magnifying-glass-minus',
     onClick: () => props.painter.canvas.scaleDown(),
   },
   {
