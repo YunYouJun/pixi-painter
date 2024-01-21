@@ -220,8 +220,7 @@ export class PainterBrush {
     this.painter.emitter.emit('brush:out')
   }
 
-  sizeDown() {
-    const size = Math.max(1, PainterBrush.size - 1)
+  setSize(size: number) {
     this.circle.clear()
     this.circle.lineStyle(1, 0x000000)
     this.circle.drawCircle(0, 0, size / 2)
@@ -229,12 +228,13 @@ export class PainterBrush {
     PainterEraser.size = size
   }
 
+  sizeDown() {
+    const size = Math.max(1, PainterBrush.size - 1)
+    this.setSize(size)
+  }
+
   sizeUp() {
     const size = PainterBrush.size + 1
-    this.circle.clear()
-    this.circle.lineStyle(1, 0x000000)
-    this.circle.drawCircle(0, 0, size / 2)
-    PainterBrush.size = size
     PainterEraser.size = size
   }
 

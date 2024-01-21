@@ -1,13 +1,17 @@
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
+import type { Painter } from '../../pixi-painter/src'
 import { PainterBrush } from '../../pixi-painter/src'
 import '@advjs/gui/dist/icons.css'
 import { PainterEraser } from '../../pixi-painter/src/eraser'
 
+const props = defineProps<{
+  painter: Painter
+}>()
+
 const size = ref(PainterBrush.size)
 watch(size, (value) => {
-  PainterBrush.size = value
-  PainterEraser.size = value
+  props.painter.brush.setSize(value)
 })
 
 const enablePressure = ref(true)
