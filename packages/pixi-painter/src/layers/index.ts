@@ -2,6 +2,7 @@ import { Container, Graphics, Sprite, Texture } from 'pixi.js'
 import type * as PIXI from 'pixi.js'
 import { PainterBrush } from '../brush'
 import type { Painter } from '../painter'
+import deleteBinSvg from '../assets/delete-bin-line.svg'
 import { createDrag } from './drag'
 import type { ControlPointPosition } from './scale'
 import { createScaleHandle } from './scale'
@@ -27,9 +28,10 @@ function getCursor(key: ControlPointPosition) {
       return 'crosshair'
     case 'CENTER':
       return 'move'
+    case 'REMOVE':
+      return 'pointer'
   }
 }
-
 export class EditableLayer extends Container {
   /**
    * index
@@ -62,6 +64,8 @@ export class EditableLayer extends Container {
     ROTATE: new Sprite(Texture.WHITE),
 
     CENTER: new Sprite(Texture.WHITE),
+
+    REMOVE: new Sprite(Texture.from(deleteBinSvg)),
   }
 
   constructor(painter: Painter) {
@@ -93,7 +97,6 @@ export class EditableLayer extends Container {
       sprite.name = key
       // sprite.tint = 0x3D5CAA
       sprite.anchor.set(0.5)
-      sprite.alpha = 0.5
       sprite.cursor = getCursor(key as ControlPointPosition)
       sprite.width = this.handleSize
       sprite.height = this.handleSize
@@ -126,6 +129,32 @@ export class EditableLayer extends Container {
           key: key as ControlPointPosition,
         })
       }
+    })
+
+    // add remove icon
+    const removeIcon = this.controlPoints.REMOVE
+    removeIcon.name = 'removeIcon'
+    removeIcon.anchor.set(0.5)
+    removeIcon.alpha = 0.8
+    removeIcon.width = 16
+    removeIcon.height = 16
+    removeIcon.cursor = 'pointer'
+    removeIcon.interactive = true
+    removeIcon.on('pointerover', () => {
+      removeIcon.alpha = 1
+    })
+    function onPointerOut() {
+      removeIcon.alpha = 0.6
+    }
+    removeIcon.on('pointerleave', onPointerOut)
+    removeIcon.on('pointercancel', onPointerOut)
+    removeIcon.on('pointerout', onPointerOut)
+    removeIcon.on('pointerdown', (e) => {
+      e.stopPropagation()
+    })
+    removeIcon.on('pointerup', (e) => {
+      e.stopPropagation()
+      this.remove()
     })
 
     // contextmenu
@@ -234,15 +263,20 @@ export class EditableLayer extends Container {
 
       // center
       CENTER: [bounds.x + bounds.width / 2, bounds.y + bounds.height / 2],
+
+      // remove
+      REMOVE: [bounds.x + bounds.width, bounds.y - 15],
     } as const
 
     const controlPointSize = this.handleSize
     for (const key in controlPointsPos) {
       const [x, y] = controlPointsPos[key as keyof typeof controlPointsPos]
-      boundingBox.beginFill(0xFFFFFF, 0.5)
-      boundingBox.drawRect(x - controlPointSize / 2, y - controlPointSize / 2, controlPointSize, controlPointSize)
-      boundingBox.endFill()
 
+      if (key !== 'REMOVE') {
+        boundingBox.beginFill(0xFFFFFF, 0.5)
+        boundingBox.drawRect(x - controlPointSize / 2, y - controlPointSize / 2, controlPointSize, controlPointSize)
+        boundingBox.endFill()
+      }
       // update handle position
       this.controlPoints[key as ControlPointPosition].position.set(x, y)
     }
