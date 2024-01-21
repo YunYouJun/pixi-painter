@@ -1,7 +1,7 @@
 {
   "name": "pixi-painter",
   "type": "module",
-  "version": "0.0.15",
+  "version": "0.1.0",
   "private": true,
   "packageManager": "pnpm@8.14.1",
   "description": "Painter based on Pixi.JS",
