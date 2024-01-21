@@ -139,7 +139,7 @@ export class EditableLayer extends Container {
     removeIcon.width = 16
     removeIcon.height = 16
     removeIcon.cursor = 'pointer'
-    removeIcon.interactive = true
+    removeIcon.eventMode = 'static'
     removeIcon.on('pointerover', () => {
       removeIcon.alpha = 1
     })

@@ -320,7 +320,6 @@ export class Painter {
   }
 
   useSelection() {
-    this.app.stage.interactive = true
     this.app.stage.cursor = 'crosshair'
     this.showBoundingBox()
   }
