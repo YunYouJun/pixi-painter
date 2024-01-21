@@ -79,7 +79,7 @@ export class PainterEraser {
     // TODO: Real eraser
     // this.graphics.blendMode = PIXI.BLEND_MODES.ERASE
 
-    this.painter.canvas.container.addChild(this.graphics)
+    this.painter.canvas.layersContainer.addChild(this.graphics)
 
     this.pointerMove(event)
   }
