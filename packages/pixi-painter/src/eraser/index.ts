@@ -31,6 +31,11 @@ export class PainterEraser {
   lastDrawnPoint: PIXI.Point | null = null
 
   /**
+   * mounted to container
+   */
+  parentContainer: PIXI.Container
+
+  /**
    * setup brush events
    * @inner
    */
@@ -50,6 +55,7 @@ export class PainterEraser {
   constructor(painter: Painter) {
     this.painter = painter
     this.setup(painter)
+    this.parentContainer = painter.canvas.layersContainer
   }
 
   getPressure(event: PIXI.FederatedPointerEvent) {
@@ -90,7 +96,7 @@ export class PainterEraser {
 
     const { global: { x, y } } = event
     // local position relative to the canvas
-    const localPos = event.getLocalPosition(this.painter.canvas.container, { x, y })
+    const localPos = event.getLocalPosition(this.parentContainer, { x, y })
     const graphics = this.graphics
     if (this.dragging && graphics) {
       graphics.beginFill(PainterEraser.color)
@@ -162,7 +168,7 @@ export class PainterEraser {
     const { global } = event
     const graphics = this.graphics
     if (this.lastDrawnPoint && graphics) {
-      const localPos = event.getLocalPosition(this.painter.canvas.container, global)
+      const localPos = event.getLocalPosition(this.parentContainer, global)
       graphics
       // .clear()
         .lineStyle({ width: PainterEraser.size * 2 * this.getPressure(event), color: PainterEraser.color })
