@@ -1,5 +1,6 @@
 import { Graphics, Point } from 'pixi.js'
 import type * as PIXI from 'pixi.js'
+import { isAABBIntersect } from '../utils/intersect'
 import { PainterEraser } from '../eraser'
 import type { Painter } from '../painter'
 
@@ -172,22 +173,30 @@ export class PainterBrush {
     // history
     PainterBrush.graphicsPool.push(this.graphics)
     const graphics = this.graphics
-    this.painter.history.record({
-      undo: () => {
-        if (graphics) {
-          graphics.visible = false
-          // remove from pool
-          PainterBrush.graphicsPool.pop()
-        }
-      },
-      redo: () => {
-        if (graphics) {
-          graphics.visible = true
-          // add to pool
-          PainterBrush.graphicsPool.push(graphics)
-        }
-      },
-    })
+
+    // judge graphics intersect with board
+    const drawing = isAABBIntersect(this.painter.board.container, graphics)
+    if (drawing) {
+      this.painter.history.record({
+        undo: () => {
+          if (graphics) {
+            graphics.visible = false
+            // remove from pool
+            PainterBrush.graphicsPool.pop()
+          }
+        },
+        redo: () => {
+          if (graphics) {
+            graphics.visible = true
+            // add to pool
+            PainterBrush.graphicsPool.push(graphics)
+          }
+        },
+      })
+    }
+    else {
+      this.graphics.destroy()
+    }
   }
 
   pointerEnter(event: PIXI.FederatedPointerEvent) {

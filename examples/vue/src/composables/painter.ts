@@ -87,7 +87,6 @@ export function usePixiPainter() {
     data.value = getLayersData(canvasContainer)
     painter.value.emitter.on('history:record', async () => {
       data.value = getLayersData(canvasContainer)
-
       // todo
 
       const extractedData = await painter.value?.extractCanvas('canvas') as HTMLCanvasElement
