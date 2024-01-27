@@ -1,7 +1,7 @@
 {
   "name": "pixi-painter",
   "type": "module",
-  "version": "0.1.4",
+  "version": "0.1.5",
   "color": "#F70A8D",
   "emoji": "🎨",
   "author": {
@@ -34,7 +34,7 @@
     "consola": "^3.2.3",
     "hotkeys-js": "^3.13.5",
     "mitt": "^3.0.1",
-    "pixi.js": "^7.4.0"
+    "pixi.js": "7.3.3"
   },
   "devDependencies": {
     "unbuild": "^2.0.0"
