@@ -30,11 +30,11 @@
   },
   "dependencies": {
     "@ctrl/tinycolor": "^4.0.3",
-    "@pixi/math-extras": "^7.3.3",
+    "@pixi/math-extras": "^7.4.0",
     "consola": "^3.2.3",
     "hotkeys-js": "^3.13.5",
     "mitt": "^3.0.1",
-    "pixi.js": "^7.3.3"
+    "pixi.js": "^7.4.0"
   },
   "devDependencies": {
     "unbuild": "^2.0.0"

@@ -163,10 +163,10 @@ export class PainterBrush {
 
     this.dragging = false
     this.lastDrawnPoint = null
-    if (!this.graphics)
+    if (!this.graphics || !this.graphics.fill)
       return
 
-    this.graphics.endFill()
+    this.graphics?.endFill()
 
     this.painter.emitter.emit('brush:up')
 

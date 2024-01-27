@@ -187,7 +187,10 @@ export class Painter {
   }
 
   onResize() {
-    const box = this.app.view.getBoundingClientRect?.()
+    const view = this.app.view
+    if (!view)
+      return
+    const box = view.getBoundingClientRect?.()
     if (box) {
       const { width, height } = box
       this.app.renderer.resize(width, height)

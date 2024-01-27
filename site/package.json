@@ -16,7 +16,7 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@pixi/unsafe-eval": "^7.3.3"
+    "@pixi/unsafe-eval": "^7.4.0"
   },
   "devDependencies": {
     "@iconify-json/carbon": "^1.1.28",
@@ -26,11 +26,11 @@
     "@nuxt/devtools": "latest",
     "@nuxtjs/color-mode": "^3.3.2",
     "@pinia/nuxt": "^0.5.1",
-    "@unocss/eslint-config": "^0.58.3",
-    "@unocss/nuxt": "^0.58.3",
+    "@unocss/eslint-config": "^0.58.4",
+    "@unocss/nuxt": "^0.58.4",
     "@vite-pwa/nuxt": "^0.4.0",
     "@vueuse/nuxt": "^10.7.2",
-    "axios": "^1.6.5",
+    "axios": "^1.6.7",
     "consola": "^3.2.3",
     "nuxt": "^3.9.3",
     "nuxt-security": "^1.0.1",
